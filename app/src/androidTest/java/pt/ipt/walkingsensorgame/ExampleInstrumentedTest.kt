@@ -1,4 +1,4 @@
-package pt.ipt.spheremaze
+package pt.ipt.walkingsensorgame
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("pt.ipt.spheremaze", appContext.packageName)
+        assertEquals("pt.ipt.WalkingSensorGame", appContext.packageName)
     }
 }

@@ -1,4 +1,4 @@
-package pt.ipt.spheremaze
+package pt.ipt.walkingsensorgame
 
 import org.junit.Test
 

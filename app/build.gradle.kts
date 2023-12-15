@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "pt.ipt.spheremaze"
+    namespace = "pt.ipt.WalkingSensorGame"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "pt.ipt.spheremaze"
+        applicationId = "pt.ipt.WalkingSensorGame"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
