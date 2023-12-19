@@ -22,6 +22,14 @@
             </intent-filter>
         </activity>
 
+        <!-- MainActivity -->
+        <activity android:name="pt.ipt.walkingsensorgame.MainActivity"/>
+
+        <!-- Level1Activity -->
+        <activity android:name="pt.ipt.walkingsensorgame.Level1" />
+
+
+
     </application>
 
 </manifest>

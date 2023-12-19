@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SphereMaze</string>
+    <string name="app_name">walkingsensorgame</string>
+    <string name="GameName">Walking Sensor\n</string>
+    <string name="playBtn">Play</string>
 </resources>

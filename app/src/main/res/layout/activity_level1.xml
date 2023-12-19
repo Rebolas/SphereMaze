@@ -10,9 +10,67 @@
         android:id="@+id/imageView"
         android:layout_width="412dp"
         android:layout_height="725dp"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mapteste1" />
+        app:srcCompat="@drawable/map1tilemap150pcent"
+        android:contentDescription="BackgroundImg"  />
+
+    <!-- Invisible Wall 1 -->
+
+    <!-- Invisible Wall 2 -->
+
+    <ImageView
+        android:id="@+id/wall1"
+        android:layout_width="78dp"
+        android:layout_height="147dp"
+        android:background="#000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible"
+        android:contentDescription="WALL1" />
+
+    <ImageView
+        android:id="@+id/wall2"
+        android:layout_width="333dp"
+        android:layout_height="48dp"
+        android:background="#000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/wall1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.995"
+        tools:visibility="visible"
+        android:contentDescription="WALL2" />
+
+    <ImageView
+        android:id="@+id/character"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/character150pcent"
+        android:contentDescription="Character" />
+
+    <TextView
+        android:id="@+id/ACELAROMETRO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
