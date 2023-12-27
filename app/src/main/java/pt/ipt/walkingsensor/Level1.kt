@@ -1,4 +1,4 @@
-package pt.ipt.walkingsensorgame
+package pt.ipt.walkingsensor
 
 import android.graphics.Point
 import android.graphics.Rect
@@ -41,7 +41,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         texto = findViewById(R.id.ACELAROMETRO)
 
         // Populate the list of walls
-        walls = listOf(findViewById(R.id.wall1), findViewById(R.id.wall2))
+        walls = listOf(findViewById(R.id.LowerWall), findViewById(R.id.LeftWall), findViewById(R.id.RightWall), findViewById(R.id.UpperWall))
         // Add more walls as needed
 
         // Get screen dimensions

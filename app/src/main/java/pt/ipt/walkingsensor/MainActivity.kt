@@ -1,18 +1,19 @@
-package pt.ipt.walkingsensorgame
+package pt.ipt.walkingsensor
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.content.Intent
 import pt.ipt.WalkingSensorGame.R
 
-class LoginActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        val buttonclick = findViewById<Button>(R.id.loginButton)
+        setContentView(R.layout.activity_main)
+
+        val buttonclick = findViewById<Button>(R.id.Playbutton)
         buttonclick.setOnClickListener{
-            val intent=Intent(this, MainActivity::class.java)
+            val intent= Intent(this,Level1::class.java)
             startActivity(intent)
         }
     }

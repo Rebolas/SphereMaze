@@ -1,4 +1,4 @@
-package pt.ipt.walkingsensorgame
+package pt.ipt.walkingsensor
 
 import org.junit.Test
 

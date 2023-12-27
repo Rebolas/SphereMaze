@@ -1,4 +1,4 @@
-package pt.ipt.walkingsensorgame
+package pt.ipt.walkingsensor
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
