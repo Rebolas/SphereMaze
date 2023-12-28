@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SphereMaze"
+rootProject.name = "WalkingSensor"
 include(":app")
  

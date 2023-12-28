@@ -1,5 +1,5 @@
-package pt.ipt.walkingsensorgame.retrofit.service
-import pt.ipt.walkingsensorgame.model.Utilizador
+package pt.ipt.walkingsensor.service
+import pt.ipt.walkingsensor.model.Utilizador
 import retrofit2.Call
 import retrofit2.http.GET
 interface APIConnector {

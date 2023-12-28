@@ -1,6 +1,6 @@
-package pt.ipt.walkingsensorgame.retrofit
+package pt.ipt.walkingsensor
 
-import pt.ipt.walkingsensorgame.retrofit.service.APIConnector
+import pt.ipt.walkingsensor.service.APIConnector
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
     class RetrofitInitializer {
