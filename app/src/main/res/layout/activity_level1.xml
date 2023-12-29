@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:contentDescription="BackgroundImg"
         android:scaleType="fitXY"
+        android:visibility="invisible"
         app:srcCompat="@drawable/base" />
 
 
@@ -19,98 +20,16 @@
 
     <!-- Invisible Wall 2 -->
 
-    <TextView
-        android:id="@+id/ACELAROMETRO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/IslandsImageView"
-        android:layout_width="211dp"
-        android:layout_height="491dp"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/LowerWall"
-        app:layout_constraintEnd_toStartOf="@+id/RightWall"
-        app:layout_constraintStart_toEndOf="@+id/LeftWall"
-        app:layout_constraintTop_toBottomOf="@+id/UpperWall"
-        app:srcCompat="@drawable/ilhas" />
-
-    <ImageView
-        android:id="@+id/BridgesImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:layout_width="416dp"
+        android:layout_height="736dp"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pontes"
-        tools:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/LowerWall"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#000000"
-        android:contentDescription="LowerWall"
-        android:scaleType="fitXY"
-
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/IslandsImageView"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/UpperWall"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#000000"
-        android:contentDescription="UpperWall"
-        android:scaleType="fitXY"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/IslandsImageView"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/LeftWall"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#000000"
-        android:contentDescription="LeftWall"
-        android:scaleType="fitXY"
-
-
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/LowerWall"
-        app:layout_constraintEnd_toStartOf="@id/IslandsImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UpperWall"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/RightWall"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#000000"
-        android:contentDescription="RightWall"
-
-        android:scaleType="fitXY"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/LowerWall"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/IslandsImageView"
-        app:layout_constraintTop_toBottomOf="@+id/UpperWall"
-        tools:visibility="visible" />
+        app:srcCompat="@drawable/teste" />
 
     <ImageView
         android:id="@+id/character"
@@ -118,12 +37,24 @@
         android:layout_height="wrap_content"
         android:contentDescription="Character"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/BackgroundImageView"
-        app:layout_constraintVertical_bias="0.676"
-        app:srcCompat="@drawable/character150pcent" />
+        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="@+id/IslandsImageView"
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView"
+        app:layout_constraintVertical_bias="0.203"
+        app:srcCompat="@drawable/character100pcent" />
+
+    <TextView
+        android:id="@+id/texto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="68dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
+        app:layout_constraintStart_toStartOf="@+id/IslandsImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
