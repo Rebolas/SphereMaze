@@ -27,11 +27,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UsernameText"
+        app:layout_constraintTop_toBottomOf="@+id/EmailText"
         app:layout_constraintVertical_bias="0.111" />
 
     <EditText
-        android:id="@+id/UsernameText"
+        android:id="@+id/EmailText"
         android:layout_width="227dp"
         android:layout_height="60dp"
         android:ems="10"
@@ -68,7 +68,7 @@
         android:id="@+id/textViewTestes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/UsernameText"
+        app:layout_constraintBottom_toTopOf="@+id/EmailText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

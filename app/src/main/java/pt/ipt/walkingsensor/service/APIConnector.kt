@@ -1,7 +1,13 @@
 package pt.ipt.walkingsensor.service
+import pt.ipt.walkingsensor.model.APIResult
 import pt.ipt.walkingsensor.model.Utilizador
 import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
+
 interface APIConnector {
     @GET("get_all_users")
     fun obterUtilizadores(): Call<List<Utilizador>>
@@ -9,7 +15,12 @@ interface APIConnector {
     @GET("get_all_scores")
     fun obterScores(): Call<List<Int>>
 
+    @POST("login")
+    fun obterToken(@Body utilizador: Utilizador?): Call<APIResult>
 
+
+
+    //fun obterToken(@Field("email")email:String?, @Field("password")password:String?): Call<APIResult>
    /* @GET("API/getNotes.php")
     fun list(): Call<List<Utilizador>>*/
 }

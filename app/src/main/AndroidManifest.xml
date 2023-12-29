@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/WalkingSensorTheme"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name="pt.ipt.walkingsensor.LandingActivity"
+            android:exported="false" />
+        <activity
+            android:name="pt.ipt.walkingsensor.Register"
+            android:exported="false" />
         <activity
             android:name="pt.ipt.walkingsensor.LoginActivity"
             android:exported="true">
@@ -24,16 +30,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- MainActivity -->
-        <activity android:name="pt.ipt.walkingsensor.MainActivity"/>
-
-        <!-- Level1Activity -->
+        </activity> <!-- MainActivity -->
+        <activity android:name="pt.ipt.walkingsensor.MainActivity" /> <!-- Level1Activity -->
         <activity android:name="pt.ipt.walkingsensor.Level1" />
-
-
-
     </application>
 
 </manifest>
