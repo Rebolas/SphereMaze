@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registar"
@@ -35,7 +35,7 @@
         android:text="Username:"
         app:layout_constraintBottom_toTopOf="@+id/UsernameTextview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegisterLabel"
         app:layout_constraintVertical_bias="1.0" />
@@ -61,10 +61,10 @@
         android:text="Email:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintVertical_bias="0.451" />
 
     <EditText
         android:id="@+id/EmailTextView"
@@ -83,30 +83,15 @@
         android:id="@+id/textView8"
         android:layout_width="78dp"
         android:layout_height="22dp"
+        android:layout_marginTop="12dp"
         android:text="Password:"
-        app:layout_constraintBottom_toTopOf="@+id/PasswordTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.291"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailTextView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/PasswordTextView"
-        android:layout_width="219dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.643" />
+        app:layout_constraintTop_toBottomOf="@+id/EmailTextView" />
 
     <Button
-        android:id="@+id/RegisterButton"
+        android:id="@+id/voltarRegisterButton"
         android:layout_width="91dp"
         android:layout_height="49dp"
         android:text="Voltar"
@@ -115,4 +100,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.859" />
+
+    <EditText
+        android:id="@+id/TextViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.047" />
 </androidx.constraintlayout.widget.ConstraintLayout>

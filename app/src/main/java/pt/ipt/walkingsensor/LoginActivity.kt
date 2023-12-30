@@ -1,15 +1,10 @@
 package pt.ipt.walkingsensor
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.content.Intent
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
-import okhttp3.ResponseBody
 import pt.ipt.WalkingSensorGame.R
 import pt.ipt.walkingsensor.model.APIResult
 import pt.ipt.walkingsensor.model.Utilizador
@@ -22,14 +17,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val buttonclick = findViewById<Button>(R.id.loginButton)
+        val loginButton = findViewById<Button>(R.id.loginButton)
         val voltarButton = findViewById<Button>(R.id.voltarButtLog)
         voltarButton.setOnClickListener {
             val intent = Intent(this@LoginActivity, LandingActivity::class.java)
             startActivity(intent)
         }
 
-        buttonclick.setOnClickListener{
+        loginButton.setOnClickListener{
             val email = findViewById<TextView>(R.id.EmailText).text
             val password = findViewById<TextView>(R.id.PasswordText).text
             fazerLogin(email.toString(), password.toString()){
@@ -40,8 +35,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun fazerLogin(email: String?, password: String?, onResult: (Utilizador?) -> Unit){
-        val utilizador = Utilizador(email, password)
-        val call = RetrofitInitializer().connector().obterToken(utilizador)
+        val utilizador = Utilizador(email, password, null)
+        val call = RetrofitInitializer().connector().obterLogin(utilizador)
         call.enqueue(
             object:Callback<APIResult> {
                 override fun onFailure(call: Call<APIResult>, t: Throwable){
