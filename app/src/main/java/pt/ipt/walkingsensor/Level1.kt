@@ -12,6 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import pt.ipt.WalkingSensorGame.R
+import java.lang.Math.floor
+import kotlin.math.floor
+import kotlin.properties.Delegates
 
 //Para duvidas verificar no video https://www.youtube.com/watch?v=xcsuDDQHrLo&ab_channel=Indently
 
@@ -26,8 +29,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private lateinit var texto: TextView
     private var BaseX: Int = 0
     private var BaseY: Int = 0
-    private var ratioX: Float = 0F
-    private var ratioY: Float = 0F
+    private var unitX: Float? = null
+    private var unitY: Float? = null
 
     private var screenWidth: Float = 0F
     private var screenHeight: Float = 0F
@@ -42,7 +45,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     // Flag to track whether it's the first time
     private var isFirstTime = true
 
-    fun stringToArray(input: String): Array<Array<Int>> {
+    private fun stringToArray(input: String): Array<Array<Int>> {
         val cleanedInput = input.replace("\n", "")
         val lines = cleanedInput.trim().substring(2, cleanedInput.length - 2).split("], [")
         val result = Array(lines.size) { Array(0) { 0 } }
@@ -53,6 +56,10 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         }
 
         return result
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +85,21 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         init()
     }
 
+    private fun setupMainGame(){
+
+
+        mainGame.post {
+            val mainGameLocation = IntArray(2)
+
+            println(" mainGame : "+mainGame.x.toString()+", "+ mainGame.y)
+            println(" Screen : $screenWidth, $screenHeight")
+            mainGame.getLocationInWindow(mainGameLocation)
+            BaseX = mainGameLocation[0]
+            BaseY = mainGameLocation[1]
+
+        }
+
+    }
     private fun init(){
         // Get screen dimensions
         val display = windowManager.defaultDisplay
@@ -86,43 +108,25 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
         screenWidth = size.x.toFloat()
         screenHeight = size.y.toFloat()
+        setupMainGame()
 
-
-        mainGame.post {
-            val mainGameLocation = IntArray(2)
-            val screenRatio = (screenWidth/screenHeight)
-            val gameRatio = (mainGame.width.toFloat()/mainGame.height.toFloat())
-
-            ratioX =  screenWidth / mainGame.width.toFloat()
-            ratioY =  screenHeight / mainGame.height.toFloat()
-
-            print("Racio X - "+ratioX+". Ratio Y - "+ratioY)
-
-            mainGame.getLocationInWindow(mainGameLocation)
-            BaseX = mainGameLocation[0]
-            BaseY = mainGameLocation[1]
-
-        }
 
         character.post{
+
+            //Definir tiles
+            unitX = (character.width/2f)
+            unitY = (character.height/2f)
+
             //Cordenadas teste
             val cordX = 13
-            val cordY = 33
-
-            //Ratio X Y
-            val unitX = (character.width/2)//*ratioX
-            val unitY = (character.height/2)//*ratioY
+            val cordY = 34
 
             //Desvios para centrar
             val desvioX = character.width/(1/3f)
             val desvioY = character.height*(2/3f)
 
-
-
-            val valX =  (unitX * cordX)
-            val valY =( (screenHeight - mainGame.height)/2) + (unitY * cordY)
-
-            print("Screen Height : " + screenHeight +"; BaseY : "+ BaseY+ "; height - basey : "+(screenHeight-BaseY))
+            val valX =getXCordOnScreen(cordX)
+            val valY =getYCordOnScreen(cordY)
 
             character.x = valX*1f
             character.y = valY*1f
@@ -132,9 +136,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
             // Setup character Position
             character.visibility = View.VISIBLE
+
         }
-
-
 
         // Initialize sensors
         setupSensors()
@@ -162,25 +165,51 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 isFirstTime = false
             }
 
-            val adjustedSides = (sides - baselineSides) * sensitivity
-            val adjustedUpdown = (updown - baselineUpdown) * sensitivity
+            if (unitX != null && unitY != null){
+                val adjustedSides = (sides - baselineSides) * sensitivity
+                val adjustedUpdown = (updown - baselineUpdown) * sensitivity
 
-            val targetX = character.translationX + adjustedSides
-            val targetY = character.translationY + adjustedUpdown
+                val targetX = character.translationX + adjustedSides
+                val targetY = character.translationY + adjustedUpdown
 
-            //Check for colisions
+                // Limit character position to the screen boundaries
+                //character.translationX = character.translationX.coerceIn(0f, mainGame.width.toFloat())
+                //character.translationY = character.translationY.coerceIn(0f, mainGame.height.toFloat())
 
+                //Check for colisions
+                if(!isCollidingWithWall(targetX, targetY)) {
 
-            // If no collision, update the character's position with smoothness
-            character.translationX = lerp(character.translationX, targetX, smoothness)
-            character.translationY = lerp(character.translationY, targetY, smoothness)
+                    // If no collision, update the character's position with smoothness
+                    character.translationX = lerp(character.translationX, targetX, smoothness)
+                    character.translationY = lerp(character.translationY, targetY, smoothness)
 
-            // Limit character position to the screen boundaries
-            //character.translationX = character.translationX.coerceIn(0f, mainGame.width.toFloat() - character.width)
-            //character.translationY = character.translationY.coerceIn(0f, mainGame.height.toFloat() - character.height)
+                    // Limit character position to the screen boundaries
+                    character.translationX = character.translationX.coerceIn(0f, mainGame.width.toFloat() - character.width)
+                    character.translationY = character.translationY.coerceIn(0f, mainGame.height.toFloat() - character.height)
 
-            texto.text = "up/down ${adjustedUpdown.toInt()}\nleft/right ${adjustedSides.toInt()}"
+                }
+
+                texto.text = "up/down ${adjustedUpdown.toInt()}\nleft/right ${adjustedSides.toInt()}"
+
+            }
         }
+    }
+
+    private fun getXCordOnScreen(x: Int): Float{
+        return ((screenWidth - mainGame.width  )/2) + unitX!!.times(x)
+    }
+    private fun getYCordOnScreen(y: Int): Float{
+        return ((screenHeight - mainGame.height)/2f) + unitY!!.times(y)
+    }
+
+    private fun getXCord(valX: Float): Float{
+        val x0 = ((screenWidth - mainGame.width)/2)
+        return floor((valX -x0)/ unitX!!)
+    }
+
+    private fun getYCord(valY: Float) : Float{
+        val y0 = (screenHeight - mainGame.height)/2
+        return floor((valY - y0) / unitY!!)
     }
 
     private fun captureBaseline(updown: Float, sides: Float) {
@@ -189,21 +218,29 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     }
 
     private fun isCollidingWithWall(targetX: Float, targetY: Float): Boolean {
-        /*for (wall in walls) {
-            val wallRect = Rect()
-            wall.getHitRect(wallRect)
+        //Get player location and cords
+        val characterLocation = IntArray(2)
+        val characterLocation2 = IntArray(2)
+        character.getLocationInWindow(characterLocation)
+        character.getLocationOnScreen(characterLocation2)
 
-            val characterRect = Rect(
-                targetX.toInt(),
-                targetY.toInt(),
-                (targetX + character.width).toInt(),
-                (targetY + character.height).toInt()
-            )
+        if(characterLocation[0]<0 || characterLocation[1]<0){
+            return  true
+        }
+        val valX = characterLocation[0]*1f
+        val valY = characterLocation[1]*1f
+        val cordX = getXCord(valX)
+        val cordY = getYCord(valY)
 
-            if (wallRect.intersect(characterRect)) {
-                return true // Collision detected with any wall
-            }
-        }*/
+        println("Cords : $cordX, $cordY.")
+
+        //Get player orientation and next cordXY
+        val playerOriX = (targetX / (character.width*1f/2f)).toInt()
+        val playerOriY = (targetY / (character.height*1f/2f)).toInt()
+        println("orientation : $playerOriX, $playerOriY.")
+
+        //Check if next walkable[cordXY] is 1
+
 
         return false // No collision with any wall
     }
