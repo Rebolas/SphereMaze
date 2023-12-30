@@ -23,6 +23,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         val buttonclick = findViewById<Button>(R.id.loginButton)
+        val voltarButton = findViewById<Button>(R.id.voltarButtLog)
+        voltarButton.setOnClickListener {
+            val intent = Intent(this@LoginActivity, LandingActivity::class.java)
+            startActivity(intent)
+        }
 
         buttonclick.setOnClickListener{
             val email = findViewById<TextView>(R.id.EmailText).text
