@@ -17,22 +17,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="pt.ipt.walkingsensor.Level2"
+            android:exported="false" />
+        <activity
             android:name="pt.ipt.walkingsensor.LandingActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="pt.ipt.walkingsensor.Register"
             android:exported="false" />
-
         <activity
             android:name="pt.ipt.walkingsensor.LoginActivity"
-            android:exported="false">
-
-        </activity> <!-- MainActivity -->
+            android:exported="false"></activity> <!-- MainActivity -->
         <activity android:name="pt.ipt.walkingsensor.MainActivity" /> <!-- Level1Activity -->
         <activity android:name="pt.ipt.walkingsensor.Level1" />
     </application>
