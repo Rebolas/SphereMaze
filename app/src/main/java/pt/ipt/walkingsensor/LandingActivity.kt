@@ -22,5 +22,11 @@ class LandingActivity : AppCompatActivity() {
             val intent = Intent(this@LandingActivity, Register::class.java)
             startActivity(intent)
         }
+
+        val sobreButton = findViewById<Button>(R.id.ButtonSobre)
+        sobreButton.setOnClickListener {
+            val intent = Intent(this@LandingActivity, SobreNos::class.java)
+            startActivity(intent)
+        }
     }
 }

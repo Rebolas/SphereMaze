@@ -35,10 +35,20 @@
         android:id="@+id/RegisterButLanding"
         android:layout_width="216dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="232dp"
+        android:layout_marginBottom="40dp"
         android:text="Registo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonSobre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/ButtonSobre"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="140dp"
+        android:text="Sobre nós"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
