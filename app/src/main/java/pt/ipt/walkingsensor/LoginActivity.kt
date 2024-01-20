@@ -26,18 +26,23 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener{
-            val username = findViewById<TextView>(R.id.EmailText).text
+            val name_email = findViewById<TextView>(R.id.name_emailText).text
             val password = findViewById<TextView>(R.id.PasswordText).text
-            fazerLogin(username.toString(), password.toString()){
+            fazerLogin(name_email.toString(), password.toString()){
                 Toast.makeText(this,"login efectuado com sucesso" ,Toast.LENGTH_LONG).show()
             }
 
         }
     }
 
-    private fun fazerLogin(username: String?, password: String?, onResult: (Utilizador?) -> Unit){
-        val utilizador = Utilizador(null, password, username)
-        val call = RetrofitInitializer().connector().obterLogin(utilizador)
+    private fun fazerLogin(name_email: String?, password: String?, onResult: (Utilizador?) -> Unit){
+        var utilizador: Utilizador? = null
+        if (name_email.toString().contains("@")){
+            utilizador = Utilizador(null,name_email , password)
+        }else{
+            utilizador = Utilizador(name_email,null , password)
+        }
+        val call = pt.ipt.walkingsensor.RetrofitInitializer().connector().obterLogin(utilizador)
         call.enqueue(
             object:Callback<APIResult> {
                 override fun onFailure(call: Call<APIResult>, t: Throwable){

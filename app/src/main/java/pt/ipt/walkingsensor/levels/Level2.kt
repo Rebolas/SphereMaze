@@ -1,4 +1,4 @@
-package pt.ipt.walkingsensor
+package pt.ipt.walkingsensor.levels
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

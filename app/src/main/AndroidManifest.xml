@@ -16,26 +16,19 @@
         android:theme="@style/WalkingSensorTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name="pt.ipt.walkingsensor.EditPersonDataActivity"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.ScoreActivity"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.PersonalDataActivity"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.PlayActivity"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.SobreNos"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.Level2"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.LandingActivity"
+
+        <activity android:name="pt.ipt.walkingsensor.EditPersonDataActivity"/>
+        <activity android:name="pt.ipt.walkingsensor.ScoreActivity"/>
+        <activity android:name="pt.ipt.walkingsensor.PersonalDataActivity"/>
+        <activity android:name="pt.ipt.walkingsensor.SobreNos" />
+        <activity android:name="pt.ipt.walkingsensor.PlayActivity" />
+        <activity android:name="pt.ipt.walkingsensor.Register" />
+        <activity android:name="pt.ipt.walkingsensor.LoginActivity" />
+        <activity android:name="pt.ipt.walkingsensor.levels.Level1" />
+        <activity android:name="pt.ipt.walkingsensor.levels.Level2"/>
+        <activity android:name="pt.ipt.walkingsensor.LandingActivity" />
+
+        <activity android:name="pt.ipt.walkingsensor.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,14 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="pt.ipt.walkingsensor.Register"
-            android:exported="false" />
-        <activity
-            android:name="pt.ipt.walkingsensor.LoginActivity"
-            android:exported="false" /> <!-- MainActivity -->
-        <activity android:name="pt.ipt.walkingsensor.MainActivity" /> <!-- Level1Activity -->
-        <activity android:name="pt.ipt.walkingsensor.Level1" />
+
     </application>
 
 </manifest>

@@ -8,12 +8,12 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="79dp"
-        android:layout_height="27dp"
-        android:text="Username:"
-        app:layout_constraintBottom_toTopOf="@+id/EmailText"
+        android:layout_width="118dp"
+        android:layout_height="28dp"
+        android:text="Username/Email:"
+        app:layout_constraintBottom_toTopOf="@+id/name_emailText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/EmailText"
+        android:id="@+id/name_emailText"
         android:layout_width="227dp"
         android:layout_height="60dp"
         android:layout_marginBottom="44dp"

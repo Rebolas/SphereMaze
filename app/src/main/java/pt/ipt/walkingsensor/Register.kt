@@ -25,18 +25,18 @@ class Register : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val username = findViewById<TextView>(R.id.UsernameTextview).text
+            val name = findViewById<TextView>(R.id.UsernameTextview).text
             val email = findViewById<TextView>(R.id.EmailTextView).text
             val password = findViewById<TextView>(R.id.TextViewPassword).text
-            fazerRegisto(username.toString(), email.toString(), password.toString()) {
+            fazerRegisto(name.toString(), email.toString(), password.toString()) {
                 //Toast.makeText(this,"Added " + it?.message + ", " + it?.token,Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun fazerRegisto(username: String?, email: String?, password: String?, onResult: (Utilizador?) -> Unit){
-        val utilizador = Utilizador(email, password, username)
-        val call = RetrofitInitializer().connector().obterRegisto(utilizador)
+    private fun fazerRegisto(name: String?, email: String?, password: String?, onResult: (Utilizador?) -> Unit){
+        val utilizador = Utilizador(name, email, password)
+        val call = pt.ipt.walkingsensor.RetrofitInitializer().connector().obterRegisto(utilizador)
         call.enqueue(
             object: Callback<APIResult> {
                 override fun onFailure(call: Call<APIResult>, t: Throwable){
