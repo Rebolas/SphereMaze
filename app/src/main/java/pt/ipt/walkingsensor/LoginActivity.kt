@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.content.Intent
 import android.widget.TextView
+import android.widget.Toast
 import pt.ipt.WalkingSensorGame.R
 import pt.ipt.walkingsensor.model.APIResult
 import pt.ipt.walkingsensor.model.Utilizador
@@ -25,17 +26,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener{
-            val email = findViewById<TextView>(R.id.EmailText).text
+            val username = findViewById<TextView>(R.id.EmailText).text
             val password = findViewById<TextView>(R.id.PasswordText).text
-            fazerLogin(email.toString(), password.toString()){
-                //Toast.makeText(this,"Added " + it?.message + ", " + it?.token,Toast.LENGTH_SHORT).show()
+            fazerLogin(username.toString(), password.toString()){
+                Toast.makeText(this,"login efectuado com sucesso" ,Toast.LENGTH_LONG).show()
             }
 
         }
     }
 
-    private fun fazerLogin(email: String?, password: String?, onResult: (Utilizador?) -> Unit){
-        val utilizador = Utilizador(email, password, null)
+    private fun fazerLogin(username: String?, password: String?, onResult: (Utilizador?) -> Unit){
+        val utilizador = Utilizador(null, password, username)
         val call = RetrofitInitializer().connector().obterLogin(utilizador)
         call.enqueue(
             object:Callback<APIResult> {
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 override fun onResponse(call: Call<APIResult>, response: Response<APIResult>){
                     val resultado: APIResult? = response.body()
-                    print(resultado)
+
                     if (resultado?.error == null) {
                         val intent=Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)

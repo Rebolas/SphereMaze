@@ -15,6 +15,9 @@ class SobreNos : AppCompatActivity() {
         voltarLandButton.setOnClickListener {
             val intent = Intent(this@SobreNos, LandingActivity::class.java)
             startActivity(intent)
+
+
+            
         }
     }
 }

@@ -10,12 +10,40 @@
         android:id="@+id/ButtonVoltarSobre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text="Voltar"
         app:icon="@android:drawable/ic_menu_revert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.957" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="396dp"
+        android:layout_height="512dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonVoltarSobre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/TextSobreNos"
+            android:layout_width="361dp"
+            android:layout_height="535dp"
+            android:scrollbars="vertical"
+            android:text="Curso de Engenharia Informática, unidade curricular de desenvolvimento de aplicações moveis, 2023/2024.\n\n23043 Ricardo Saúde\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho"
+            app:layout_constraintBottom_toTopOf="@+id/ButtonVoltarSobre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.604" />
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
