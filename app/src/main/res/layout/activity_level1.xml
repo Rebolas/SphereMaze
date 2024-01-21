@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pt.ipt.walkingsensor.Level1">
+    tools:context="pt.ipt.walkingsensor.levels.Level1">
 
     <ImageView
         android:id="@+id/BackgroundImageView"
@@ -12,7 +13,6 @@
         android:layout_height="match_parent"
         android:contentDescription="BackgroundImg"
         android:scaleType="fitXY"
-        android:visibility="invisible"
         app:srcCompat="@drawable/base" />
 
 
@@ -37,7 +37,8 @@
         android:id="@+id/character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#DF1010"
+        android:alpha="0"
+        android:background="#00DF1010"
         android:contentDescription="Character"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
@@ -49,15 +50,79 @@
         app:srcCompat="@drawable/character100pcent" />
 
     <TextView
-        android:id="@+id/texto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginEnd="183dp"
-        android:layout_marginBottom="68dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
-        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
-        app:layout_constraintStart_toStartOf="@+id/IslandsImageView" />
+        android:id="@+id/blankTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:alpha="1"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/ImageScroll"
+        android:layout_width="408dp"
+        android:layout_height="218dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/parchment" />
+
+    <TextView
+        android:id="@+id/textViewTypewritter"
+        android:layout_width="251dp"
+        android:layout_height="95dp"
+        android:alpha="0"
+        android:fontFamily="serif-monospace"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageScroll"
+        app:layout_constraintEnd_toEndOf="@+id/ImageScroll"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/ImageScroll"
+        app:layout_constraintTop_toTopOf="@+id/ImageScroll"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <ImageView
+        android:id="@+id/imageViewCharacterGreen"
+        android:layout_width="249dp"
+        android:layout_height="449dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.172"
+        app:srcCompat="@drawable/character200pcent" />
+
+    <ImageView
+        android:id="@+id/imageViewCharacterRed"
+        android:layout_width="249dp"
+        android:layout_height="449dp"
+        android:layout_marginStart="112dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageViewCharacterGreen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58"
+        app:srcCompat="@drawable/character200pcent" />
+
+    <ImageView
+        android:id="@+id/imageViewCharacterBlue"
+        android:layout_width="249dp"
+        android:layout_height="449dp"
+        android:layout_marginEnd="96dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewCharacterGreen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58"
+        app:srcCompat="@drawable/character200pcent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

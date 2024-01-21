@@ -26,9 +26,9 @@
         <activity android:name="pt.ipt.walkingsensor.LoginActivity" />
         <activity android:name="pt.ipt.walkingsensor.levels.Level1" />
         <activity android:name="pt.ipt.walkingsensor.levels.Level2"/>
-        <activity android:name="pt.ipt.walkingsensor.LandingActivity" />
+        <activity android:name="pt.ipt.walkingsensor.MainActivity" />
 
-        <activity android:name="pt.ipt.walkingsensor.MainActivity"
+        <activity android:name="pt.ipt.walkingsensor.LandingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

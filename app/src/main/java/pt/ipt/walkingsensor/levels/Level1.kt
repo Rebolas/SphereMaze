@@ -1,42 +1,49 @@
-package pt.ipt.walkingsensor
+package pt.ipt.walkingsensor.levels
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.content.res.Resources
 import android.graphics.Point
-import android.graphics.Rect
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.animation.doOnEnd
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import pt.ipt.WalkingSensorGame.R
-import java.lang.Math.floor
+import java.sql.DriverManager.println
 import kotlin.math.floor
-import kotlin.properties.Delegates
+
 
 //Para duvidas verificar no video https://www.youtube.com/watch?v=xcsuDDQHrLo&ab_channel=Indently
 
-
 class Level1 : AppCompatActivity(), SensorEventListener {
-
 
     private lateinit var walkableMatrix: Array<Array<Int>>
     private lateinit var sensorManager: SensorManager
     private lateinit var character: ImageView
     private lateinit var mainGame: ImageView
     private lateinit var texto: TextView
-    private var BaseX: Int = 0
-    private var BaseY: Int = 0
+    private var animSet = AnimatorSet()
     private var unitX: Float? = null
     private var unitY: Float? = null
-
+    private var baseX: Int = 0
+    private var baseY: Int = 0
     private var screenWidth: Float = 0F
     private var screenHeight: Float = 0F
     private val smoothness = 0.2f
     private val sensitivity = 6f
-
 
     // Baseline variables
     private var baselineSides: Float = 0f
@@ -66,9 +73,162 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level1)
 
+        //Setup the game
+        setupGame()
+        setupCordSystem()
+
+        //Start the game
+        //Play fade-in animation
+        fadeAnimations()
+
+        //setupSensors()
+
+    }
+    fun getScreenWidth(): Int {
+        return Resources.getSystem().displayMetrics.widthPixels
+    }
+
+    fun getScreenHeight(): Int {
+        return Resources.getSystem().displayMetrics.heightPixels
+    }
+
+    private fun fadeAnimations() {
+
+        //setup Black Screen
+        setupBlackScreen()
+
+        //Vars
+        var currentDuration = 0L
+        val blackScreen = findViewById<TextView>(R.id.blankTextView)
+        val scrollImage = findViewById<ImageView>(R.id.ImageScroll)
+        val scrollText =  findViewById<TextView>(R.id.textViewTypewritter)
+        val redNPCImage = findViewById<ImageView>(R.id.imageViewCharacterRed)
+        character.x = getScreenWidth() / 2f
+        character.y = getScreenHeight() / 2f
+
+        //Black screen
+        val fadeBlackScreen: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 1f, 0.5f)
+        fadeBlackScreen.duration = 5_000
+        animSet.play(fadeBlackScreen)
+
+        //Play "What is going on" animation
+        //Play character going down from the middle of the screen
+        //character appears and becomes huge because he's close to the screen
+
+        var writeAnim = writeMessage("HAAAAAA!!!  ",3_000)
+        val characterOnAnim = ObjectAnimator.ofFloat(character,"alpha",0f,1f)
+        characterOnAnim.duration = 500
+        animSet.play(characterOnAnim,)
+        var scaleX = ObjectAnimator.ofFloat(character, "scaleX", 1f, 3f)
+        var scaleY = ObjectAnimator.ofFloat(character, "scaleY", 1f, 3f)
+        animSet.play(characterOnAnim).with(scaleX).with(scaleY).after(fadeBlackScreen)
+
+
+        animSet.play(writeAnim).after(characterOnAnim).after(1000)
+
+
+        //character "descends", just resizing gives the effect of apearing to be dropped down
+        scaleX = ObjectAnimator.ofFloat(character, "scaleX", 3f, 1f)
+        scaleX.duration = 3_000
+        scaleY = ObjectAnimator.ofFloat(character, "scaleY", 3f, 1f)
+        scaleY.duration = 3_000
+        animSet.play(scaleX).with(scaleY).after(characterOnAnim)
+
+        //Red guy appears
+        val writeAnim2 = writeMessage("Mais um!? Coitado ainda não sabe o que lhe espera...",7_000)
+        val redNpcOnAnim = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
+        redNpcOnAnim.duration = 3_000
+        animSet.play(redNpcOnAnim).with(writeAnim2).after(writeAnim)
+
+
+        val redNpcOffAnim = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
+        animSet.play(redNpcOffAnim).after(writeAnim2)
+
+        animSet.start()
+
+
+
+    }
+
+    private fun chatOff(){
+
+    }
+    private fun writeMessage(txt:String, duration: Long): AnimatorSet {
+        val animationSet = AnimatorSet()
+        val scrollImage = findViewById<ImageView>(R.id.ImageScroll)
+        val scrollText =  findViewById<TextView>(R.id.textViewTypewritter)
+        val ScrollImgOnAnim = ObjectAnimator.ofFloat(scrollImage,"alpha",0f,1f)
+        val ScrollTextOnAnim = ObjectAnimator.ofFloat(scrollText,"alpha",0f,1f)
+        ScrollTextOnAnim.doOnEnd {
+            scrollText.typeWrite(
+                this,
+                txt,
+                50L,
+                )
+        }
+
+        ScrollImgOnAnim.duration = 1_500
+        ScrollTextOnAnim.duration = 1_500
+        animationSet.play(ScrollImgOnAnim).with(ScrollTextOnAnim)
+
+        val ScrollImgOffAnim = ObjectAnimator.ofFloat(scrollImage,"alpha",1f,0f)
+        val ScrollTextOffAnim = ObjectAnimator.ofFloat(scrollText,"alpha",1f,0f)
+        ScrollTextOffAnim.doOnEnd {
+            scrollText.text = ""
+        }
+        ScrollImgOffAnim.duration = 3_000
+        ScrollTextOffAnim.duration = 3_000
+        animationSet.play(ScrollImgOffAnim)
+                    .with(ScrollTextOffAnim)
+                    .after(duration + txt.length*50L)
+                    .after(ScrollTextOnAnim)
+
+        return animationSet
+    }
+
+    // https://stackoverflow.com/questions/64460165/making-texts-appear-one-by-one-aka-typewriter-effect-in-android-kotlin
+    fun TextView.typeWrite(lifecycleOwner: LifecycleOwner, text: String, intervalMs: Long) {
+        this@typeWrite.text = ""
+        lifecycleOwner.lifecycleScope.launch {
+            repeat(text.length) {
+                delay(intervalMs)
+                this@typeWrite.text = text.take(it + 1)
+            }
+        }
+    }
+
+    fun scaleView(v: View, startXScale: Float, endXScale: Float, startYScale: Float, endYScale: Float,duration: Long) {
+        val anim: Animation = ScaleAnimation(
+            startXScale, endXScale,  // Start and end values for the X axis scaling
+            startYScale, endYScale,  // Start and end values for the Y axis scaling
+            Animation.RELATIVE_TO_PARENT, 0.5f,  // Pivot point of X scaling
+            Animation.RELATIVE_TO_PARENT, 0.5f  // Pivot point of Y scaling
+        )
+
+        anim.fillAfter = true // Needed to keep the result of the animation
+        anim.duration = duration
+        v.startAnimation(anim)
+    }
+
+    // Animation https://stackoverflow.com/questions/4813995/set-alpha-opacity-of-layout
+    private fun setupBlackScreen() {
+        val blackScreen = findViewById<TextView>(R.id.blankTextView)
+        blackScreen.x = 0f
+        blackScreen.y = 0f
+        blackScreen.width = getScreenWidth()
+        blackScreen.height = getScreenHeight()
+
+
+    }
+
+    private fun setupGame() {
         character = findViewById(R.id.character)
         mainGame = findViewById(R.id.IslandsImageView)
-        texto = findViewById(R.id.texto)
+        //texto = findViewById(R.id.texto)
+
+        val mapHeight = 736
+        val mapWidth = 416
+        val baseCharXY = 32
 
         //Init temporario, vem da API
         val input = """[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 
@@ -80,27 +240,10 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]""".trimIndent()
         walkableMatrix = stringToArray(input)
-
-
-        init()
     }
 
-    private fun setupMainGame(){
+    private fun setupCordSystem(){
 
-
-        mainGame.post {
-            val mainGameLocation = IntArray(2)
-
-            println(" mainGame : "+mainGame.x.toString()+", "+ mainGame.y)
-            println(" Screen : $screenWidth, $screenHeight")
-            mainGame.getLocationInWindow(mainGameLocation)
-            BaseX = mainGameLocation[0]
-            BaseY = mainGameLocation[1]
-
-        }
-
-    }
-    private fun init(){
         // Get screen dimensions
         val display = windowManager.defaultDisplay
         val size = Point()
@@ -108,18 +251,42 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
         screenWidth = size.x.toFloat()
         screenHeight = size.y.toFloat()
-        setupMainGame()
+
+        //Define the baseXY of the cscreen based on the character
+        mainGame.post {
+            val mainGameLocation = IntArray(2)
+
+            println(" mainGame : "+mainGame.x.toString()+", "+ mainGame.y)
+            println(" Screen : $screenWidth, $screenHeight")
+            mainGame.getLocationInWindow(mainGameLocation)
+            val a = character.height
+            baseX = mainGameLocation[0]
+            baseY = mainGameLocation[1] + 32
+
+            //baseY = (mainGame.height - screenHeight).toInt()
+            //baseY = (screenHeight - mainGame.height).toInt() * -1
+        }
 
 
         character.post{
+            //Definir tamanho da personagem baseado no resizing
+
+            val mapHeight = 736
+            val mapWidth = 416
+            val xratio = screenWidth
+            val yratio = screenHeight
 
             //Definir tiles
             unitX = (character.width/2f)
             unitY = (character.height/2f)
 
+            character.layoutParams.width = (character.width * (1- (mapWidth/screenWidth))).toInt()
+            character.layoutParams.height = (character.height * (1- (mapHeight/screenHeight))).toInt()
+            character.requestLayout();
+
             //Cordenadas teste
-            val cordX = 13
-            val cordY = 34
+            val cordX = 0
+            val cordY = 0
 
             //Desvios para centrar
             val desvioX = character.width/(1/3f)
@@ -127,21 +294,9 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
             val valX =getXCordOnScreen(cordX)
             val valY =getYCordOnScreen(cordY)
-
-            character.x = valX*1f
-            character.y = valY*1f
-
-            // Debugging
-            println("startX: $valX, startY: $valY")
-
-            // Setup character Position
-            character.visibility = View.VISIBLE
-
         }
-
-        // Initialize sensors
-        setupSensors()
     }
+
     private fun setupSensors() {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
@@ -189,27 +344,25 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
                 }
 
-                texto.text = "up/down ${adjustedUpdown.toInt()}\nleft/right ${adjustedSides.toInt()}"
+                //texto.text = "up/down ${adjustedUpdown.toInt()}\nleft/right ${adjustedSides.toInt()}"
 
             }
         }
     }
 
     private fun getXCordOnScreen(x: Int): Float{
-        return ((screenWidth - mainGame.width  )/2) + unitX!!.times(x)
+        return baseX + unitX!!.times(x)
     }
     private fun getYCordOnScreen(y: Int): Float{
-        return ((screenHeight - mainGame.height)/2f) + unitY!!.times(y)
+        return baseY + unitY!!.times(y)
     }
 
     private fun getXCord(valX: Float): Float{
-        val x0 = ((screenWidth - mainGame.width)/2)
-        return floor((valX -x0)/ unitX!!)
+        return floor((valX -baseX)/ unitX!!)
     }
 
     private fun getYCord(valY: Float) : Float{
-        val y0 = (screenHeight - mainGame.height)/2
-        return floor((valY - y0) / unitY!!)
+        return floor((valY - baseY) / unitY!!)
     }
 
     private fun captureBaseline(updown: Float, sides: Float) {
@@ -231,7 +384,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         val valY = characterLocation[1]*1f
         val cordX = getXCord(valX)
         val cordY = getYCord(valY)
-
+        //texto.text = "Cords : $cordX, $cordY."
         println("Cords : $cordX, $cordY.")
 
         //Get player orientation and next cordXY
