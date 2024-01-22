@@ -82,7 +82,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         fadeAnimations()
 
         //setupSensors()
-
     }
     fun getScreenWidth(): Int {
         return Resources.getSystem().displayMetrics.widthPixels
@@ -103,56 +102,162 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         val scrollImage = findViewById<ImageView>(R.id.ImageScroll)
         val scrollText =  findViewById<TextView>(R.id.textViewTypewritter)
         val redNPCImage = findViewById<ImageView>(R.id.imageViewCharacterRed)
+        val blueNPCImage = findViewById<ImageView>(R.id.imageViewCharacterBlue)
+        val greenNPCImage = findViewById<ImageView>(R.id.imageViewCharacterGreen)
         character.x = getScreenWidth() / 2f
-        character.y = getScreenHeight() / 2f
+        character.y = getScreenHeight()* (2 / 3f)
 
         //Black screen
-        val fadeBlackScreen: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 1f, 0.5f)
-        fadeBlackScreen.duration = 5_000
-        animSet.play(fadeBlackScreen)
+        val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 1f, 0.5f)
+        fadeBlackScreen1Half.duration = 5_000
+        animSet.play(fadeBlackScreen1Half)
 
         //Play "What is going on" animation
         //Play character going down from the middle of the screen
         //character appears and becomes huge because he's close to the screen
 
-        var writeAnim = writeMessage("HAAAAAA!!!  ",3_000)
+        var playerMessageAnim1 = writeMessage("HAAAAAA!!!  ",3_000)
         val characterOnAnim = ObjectAnimator.ofFloat(character,"alpha",0f,1f)
         characterOnAnim.duration = 500
         animSet.play(characterOnAnim,)
-        var scaleX = ObjectAnimator.ofFloat(character, "scaleX", 1f, 3f)
-        var scaleY = ObjectAnimator.ofFloat(character, "scaleY", 1f, 3f)
-        animSet.play(characterOnAnim).with(scaleX).with(scaleY).after(fadeBlackScreen)
+        var scaleX = ObjectAnimator.ofFloat(character, "scaleX", 1f, 6f)
+        var scaleY = ObjectAnimator.ofFloat(character, "scaleY", 1f, 6f)
+        animSet.play(characterOnAnim).with(scaleX).with(scaleY).after(fadeBlackScreen1Half)
 
 
-        animSet.play(writeAnim).after(characterOnAnim).after(1000)
+        animSet.play(playerMessageAnim1).after(characterOnAnim).after(1000)
 
 
         //character "descends", just resizing gives the effect of apearing to be dropped down
-        scaleX = ObjectAnimator.ofFloat(character, "scaleX", 3f, 1f)
+        scaleX = ObjectAnimator.ofFloat(character, "scaleX", 6f, 1f)
         scaleX.duration = 3_000
-        scaleY = ObjectAnimator.ofFloat(character, "scaleY", 3f, 1f)
+        scaleY = ObjectAnimator.ofFloat(character, "scaleY", 6f, 1f)
         scaleY.duration = 3_000
         animSet.play(scaleX).with(scaleY).after(characterOnAnim)
 
         //Red guy appears
-        val writeAnim2 = writeMessage("Mais um!? Coitado ainda não sabe o que lhe espera...",7_000)
-        val redNpcOnAnim = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
-        redNpcOnAnim.duration = 3_000
-        animSet.play(redNpcOnAnim).with(writeAnim2).after(writeAnim)
+        var txt = "Mais um!? Coitado ainda não sabe o que lhe espera..."
+        var duration = 4_000L
+        val redMessageAnim1: AnimatorSet = writeMessage(txt,duration)
+        var redNpcOnAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
+        var redNpcOffAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
+        redNpcOnAnim1.duration = 3_000
+        redNpcOffAnim1.duration = 3_000
+        redNpcOffAnim1.startDelay = duration + txt.length*50L // typeDuration
+        animSet.play(redNpcOnAnim1).with(redMessageAnim1).with(redNpcOffAnim1).after(playerMessageAnim1)
+
+        //Blue guy appears
+        txt = "Se isto já era dificil, agora com ele... "
+        duration = 4_000L
+        val blueMessageAnim1 = writeMessage(txt,duration)
+        val blueNpcOnAnim1 = ObjectAnimator.ofFloat(blueNPCImage,"alpha",0f,1f)
+        val blueNpcOffAnim1 = ObjectAnimator.ofFloat(blueNPCImage,"alpha",1f,0f)
+        blueNpcOnAnim1.duration = 3_000
+        blueNpcOffAnim1.duration = 3_000
+        blueNpcOffAnim1.startDelay = duration + txt.length*50L // typeDuration
+        animSet.play(blueNpcOnAnim1).with(blueMessageAnim1).with(blueNpcOffAnim1).after(redMessageAnim1)
+
+        //Player Responds
+        txt = "Uhm? Ahm...  Como assim??"
+        duration = 4_000L
+        val playerMessageAnim2 = writeMessage(txt,duration)
+        animSet.play(playerMessageAnim2).after(blueMessageAnim1)
+
+        //Green guy appears
+        txt = "Olha, este conseguiu sobreviver. Como é que te chamas?"
+        duration = 4_000L
+        val greenMessageAnim1 = writeMessage(txt,duration)
+        val greenNpcOnAnim1 = ObjectAnimator.ofFloat(greenNPCImage,"alpha",0f,1f)
+        val greenNpcOffAnim1 = ObjectAnimator.ofFloat(greenNPCImage,"alpha",1f,0f)
+        greenNpcOnAnim1.duration = 3_000
+        greenNpcOffAnim1.duration = 3_000
+        greenNpcOffAnim1.startDelay = duration + txt.length*50L // typeDuration
+        animSet.play(greenNpcOnAnim1).with(greenMessageAnim1).with(greenNpcOffAnim1).after(playerMessageAnim2)
+
+        //Player Responds
+        txt = "Boas sou o player, estou confuso... O que é que se passa?"
+        duration = 4_000L
+        val playerMessageAnim3 = writeMessage(txt,duration)
+        animSet.play(playerMessageAnim3).after(greenMessageAnim1)
+
+        //Blue guy responds
+        txt = "É simples, morreste e vieste aqui parar. Sorte a tua, sobreviveste à queda."
+        duration = 4_000L
+        val blueMessageAnim2 = writeMessage(txt,duration)
+        val blueNpcOnAnim2 = ObjectAnimator.ofFloat(blueNPCImage,"alpha",0f,1f)
+        blueNpcOnAnim2.duration = 3_000
+        animSet.play(blueNpcOnAnim2).with(blueMessageAnim2).after(playerMessageAnim3)
+
+        //Red guy responds
+        txt = "Até te safaste, Hahaha."
+        duration = 4_000L
+        val redMessageAnim2: AnimatorSet = writeMessage(txt,duration)
+        val redNpcOnAnim2 = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
+        redNpcOnAnim2.duration = 3_000
+        animSet.play(redNpcOnAnim2).with(redMessageAnim2).after(blueMessageAnim2)
+
+        //Green guy responds
+        txt = "Nós quando chegamos abusamos um pouco. Ahh, que boa vida ."
+        duration = 4_000L
+        val greenMessageAnim2 = writeMessage(txt,duration)
+        val greenNpcOnAnim2 = ObjectAnimator.ofFloat(greenNPCImage,"alpha",0f,1f)
+        greenNpcOnAnim2.duration = 3_000
+        animSet.play(greenNpcOnAnim2).with(greenMessageAnim2).after(redMessageAnim2)
 
 
-        val redNpcOffAnim = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
-        animSet.play(redNpcOffAnim).after(writeAnim2)
+        //Green guy responds
+        txt = "Tinhamos tudo o que precisavamos e por uns tempos não mexemos uma palha."
+        duration = 4_000L
+        val greenMessageAnim3 = writeMessage(txt,duration)
+        animSet.play(greenMessageAnim3).after(greenMessageAnim2)
 
+        //Red guy responds
+        txt = "Comemos até não haver mais."
+        duration = 4_000L
+        val redMessageAnim3: AnimatorSet = writeMessage(txt,duration)
+        animSet.play(redMessageAnim3).after(greenMessageAnim3)
+
+        //Green guy continues
+        txt = "Até que nos aprecebemos que... tinhamos de começar a poupar os recursos."
+        duration = 4_000L
+        val greenMessageAnim4 = writeMessage(txt,duration)
+        animSet.play(greenMessageAnim4).after(redMessageAnim3)
+
+        //Blue guy continues
+        txt = "Como já estamos aqui á algum tempo, já não conseguimos sair."
+        duration = 4_000L
+        val blueMessageAnim3 = writeMessage(txt,duration)
+        animSet.play(blueMessageAnim3).after(greenMessageAnim4)
+
+        //Blue guy continues
+        txt = "Mas tu ainda tens forma de te salvar."
+        duration = 4_000L
+        val blueMessageAnim4 = writeMessage(txt,duration)
+        animSet.play(blueMessageAnim4).after(blueMessageAnim3)
+
+        //Red guy responds
+        txt = "Cheira-me a negócio. Nós ensimamos-te como sair e em troca tu ajudas-nos."
+        duration = 4_000L
+        val redMessageAnim4: AnimatorSet = writeMessage(txt,duration)
+        animSet.play(redMessageAnim4).after(blueMessageAnim4)
+
+
+        //All disappear
+        val greenNpcOnAnim3 = ObjectAnimator.ofFloat(greenNPCImage,"alpha",1f,0f)
+        val blueNpcOnAnim3 = ObjectAnimator.ofFloat(blueNPCImage,"alpha",1f,0f)
+        val redNpcOnAnim3 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
+        animSet.play(greenNpcOnAnim3).with(blueNpcOnAnim3).with(redNpcOnAnim3).after(redMessageAnim4)
+
+        //Fade the rest out
+        val fadeBlackScreen2Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0.5f, 0.0f)
+        fadeBlackScreen2Half.duration = 2_000
+
+        fadeBlackScreen2Half.doOnEnd { setupSensors() }
+        animSet.play(fadeBlackScreen2Half).after(greenNpcOnAnim3)
         animSet.start()
 
-
-
     }
 
-    private fun chatOff(){
-
-    }
     private fun writeMessage(txt:String, duration: Long): AnimatorSet {
         val animationSet = AnimatorSet()
         val scrollImage = findViewById<ImageView>(R.id.ImageScroll)

@@ -76,7 +76,7 @@
 
     <TextView
         android:id="@+id/textViewTypewritter"
-        android:layout_width="251dp"
+        android:layout_width="266dp"
         android:layout_height="95dp"
         android:alpha="0"
         android:fontFamily="serif-monospace"
@@ -91,38 +91,39 @@
 
     <ImageView
         android:id="@+id/imageViewCharacterGreen"
-        android:layout_width="249dp"
-        android:layout_height="449dp"
+        android:layout_width="156dp"
+        android:layout_height="283dp"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172"
-        app:srcCompat="@drawable/character200pcent" />
+        app:layout_constraintVertical_bias="0.34"
+        app:srcCompat="@drawable/green" />
+
+    <ImageView
+        android:id="@+id/imageViewCharacterBlue"
+        android:layout_width="144dp"
+        android:layout_height="248dp"
+        android:layout_marginEnd="100dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewCharacterGreen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.575"
+        app:srcCompat="@drawable/blue" />
 
     <ImageView
         android:id="@+id/imageViewCharacterRed"
-        android:layout_width="249dp"
-        android:layout_height="449dp"
+        android:layout_width="149dp"
+        android:layout_height="278dp"
         android:layout_marginStart="112dp"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageViewCharacterGreen"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58"
-        app:srcCompat="@drawable/character200pcent" />
-
-    <ImageView
-        android:id="@+id/imageViewCharacterBlue"
-        android:layout_width="249dp"
-        android:layout_height="449dp"
-        android:layout_marginEnd="96dp"
-        android:alpha="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewCharacterGreen"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58"
-        app:srcCompat="@drawable/character200pcent" />
+        app:layout_constraintVertical_bias="0.57"
+        app:srcCompat="@drawable/red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
         android:layout_height="62dp"
         android:text="@string/GameName"
         android:textSize="40sp"
+        app:autoSizeMaxTextSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
