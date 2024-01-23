@@ -31,7 +31,7 @@ class PersonalDataActivity : AppCompatActivity() {
         buttonEditarDados.setOnClickListener{
         if (!nameEdit.isVisible) {
             nameEdit.visibility = View.VISIBLE
-            textViewEmail.visibility = View.INVISIBLE
+            nameTextView.visibility = View.INVISIBLE
 
             emailEdit.visibility = View.VISIBLE
             textViewEmail.visibility = View.INVISIBLE
