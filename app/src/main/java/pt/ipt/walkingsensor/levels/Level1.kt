@@ -142,7 +142,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         scaleY.duration = 3_000
         animSet.play(scaleX).with(scaleY).after(characterOnAnim)
 
-/*
+
         //Red guy appears
         var txt = "Mais um!? Coitado ainda não sabe o que lhe espera..."
         var duration = 4_000L
@@ -256,12 +256,12 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         val redNpcOnAnim3 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
         animSet.play(greenNpcOnAnim3).with(blueNpcOnAnim3).with(redNpcOnAnim3).after(redMessageAnim4)
 
-        */
+
         //Fade the rest out
         val fadeBlackScreen2Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0.5f, 0.0f)
         fadeBlackScreen2Half.duration = 2_000
 
-        animSet.play(fadeBlackScreen2Half).after(playerMessageAnim1)//.after(greenNpcOnAnim3)
+        animSet.play(fadeBlackScreen2Half).after(greenNpcOnAnim3)
         animSet.doOnEnd { setupSensors()  }
         animSet.start()
 
