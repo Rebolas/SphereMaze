@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pt.ipt.walkingsensor.levels.Level1">
@@ -13,6 +12,11 @@
         android:layout_height="match_parent"
         android:contentDescription="BackgroundImg"
         android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/base" />
 
 
@@ -27,18 +31,16 @@
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/teste" />
+        app:srcCompat="@drawable/teste1" />
 
     <ImageView
         android:id="@+id/character"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0"
-        android:background="#00DF1010"
+        android:background="#D50909"
         android:contentDescription="Character"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
@@ -48,6 +50,58 @@
         app:layout_constraintTop_toTopOf="@+id/IslandsImageView"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/character100pcent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group"
+        android:layout_width="400dp"
+        android:layout_height="785dp"
+        android:background="#57951D1D"
+        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
+        app:layout_constraintStart_toStartOf="@+id/IslandsImageView"
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView">
+
+        <ImageView
+            android:id="@+id/walkable2"
+            android:layout_width="253dp"
+            android:layout_height="141dp"
+            android:background="#658E2E8D"
+            android:tag="walkable2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.878" />
+
+        <ImageView
+            android:id="@+id/walkable1"
+            android:layout_width="44dp"
+            android:layout_height="189dp"
+            android:layout_marginStart="144dp"
+            android:layout_marginEnd="193dp"
+            android:background="#758E2E8D"
+            android:tag="walkable1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.368"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.699" />
+
+        <ImageView
+            android:id="@+id/Walkable"
+            android:layout_width="351dp"
+            android:layout_height="392dp"
+            android:layout_marginTop="60dp"
+            android:background="#59C501E8"
+            android:scaleType="center"
+            android:tag="walkable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/blankTextView"
@@ -63,6 +117,21 @@
         app:layout_constraintTop_toTopOf="@id/BackgroundImageView"
         app:layout_constraintVertical_bias="0.0"
         tools:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="128dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="84dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/customprogressbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView"
+        app:layout_constraintVertical_bias="0.00999999" />
 
     <ImageView
         android:id="@+id/ImageScroll"

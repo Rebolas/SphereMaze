@@ -50,6 +50,8 @@ class LandingActivity : AppCompatActivity() {
         isMusicPlaying = true
 
         /// END OF TEST CODE
+
+
         val loginButton = findViewById<Button>(R.id.LoginButLanding)
         loginButton.setOnClickListener {
             val intent = Intent(this@LandingActivity, LoginActivity::class.java)

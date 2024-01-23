@@ -5,17 +5,22 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.res.Resources
 import android.graphics.Point
+import android.graphics.RectF
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +28,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pt.ipt.WalkingSensorGame.R
 import java.sql.DriverManager.println
+import java.util.Random
 import kotlin.math.floor
 
 
@@ -34,7 +40,9 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private lateinit var character: ImageView
     private lateinit var mainGame: ImageView
+    private lateinit var walkableLayout: ConstraintLayout
     private lateinit var texto: TextView
+    private lateinit var progressBar: ProgressBar
     private var animSet = AnimatorSet()
     private var unitX: Float? = null
     private var unitY: Float? = null
@@ -81,7 +89,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         //Play fade-in animation
         fadeAnimations()
 
-        //setupSensors()
     }
     fun getScreenWidth(): Int {
         return Resources.getSystem().displayMetrics.widthPixels
@@ -105,7 +112,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         val blueNPCImage = findViewById<ImageView>(R.id.imageViewCharacterBlue)
         val greenNPCImage = findViewById<ImageView>(R.id.imageViewCharacterGreen)
         character.x = getScreenWidth() / 2f
-        character.y = getScreenHeight()* (2 / 3f)
+        character.y = getScreenHeight()* (1 / 3f)
 
         //Black screen
         val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 1f, 0.5f)
@@ -135,6 +142,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         scaleY.duration = 3_000
         animSet.play(scaleX).with(scaleY).after(characterOnAnim)
 
+/*
         //Red guy appears
         var txt = "Mais um!? Coitado ainda não sabe o que lhe espera..."
         var duration = 4_000L
@@ -248,12 +256,13 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         val redNpcOnAnim3 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
         animSet.play(greenNpcOnAnim3).with(blueNpcOnAnim3).with(redNpcOnAnim3).after(redMessageAnim4)
 
+        */
         //Fade the rest out
         val fadeBlackScreen2Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0.5f, 0.0f)
         fadeBlackScreen2Half.duration = 2_000
 
-        fadeBlackScreen2Half.doOnEnd { setupSensors() }
-        animSet.play(fadeBlackScreen2Half).after(greenNpcOnAnim3)
+        animSet.play(fadeBlackScreen2Half).after(playerMessageAnim1)//.after(greenNpcOnAnim3)
+        animSet.doOnEnd { setupSensors()  }
         animSet.start()
 
     }
@@ -281,6 +290,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         ScrollTextOffAnim.doOnEnd {
             scrollText.text = ""
         }
+
         ScrollImgOffAnim.duration = 3_000
         ScrollTextOffAnim.duration = 3_000
         animationSet.play(ScrollImgOffAnim)
@@ -300,19 +310,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 this@typeWrite.text = text.take(it + 1)
             }
         }
-    }
-
-    fun scaleView(v: View, startXScale: Float, endXScale: Float, startYScale: Float, endYScale: Float,duration: Long) {
-        val anim: Animation = ScaleAnimation(
-            startXScale, endXScale,  // Start and end values for the X axis scaling
-            startYScale, endYScale,  // Start and end values for the Y axis scaling
-            Animation.RELATIVE_TO_PARENT, 0.5f,  // Pivot point of X scaling
-            Animation.RELATIVE_TO_PARENT, 0.5f  // Pivot point of Y scaling
-        )
-
-        anim.fillAfter = true // Needed to keep the result of the animation
-        anim.duration = duration
-        v.startAnimation(anim)
     }
 
     // Animation https://stackoverflow.com/questions/4813995/set-alpha-opacity-of-layout
@@ -345,6 +342,96 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]""".trimIndent()
         walkableMatrix = stringToArray(input)
+        walkableLayout = findViewById(R.id.group)
+
+        //Setup mushrooms
+        val totalMushrooms = 10
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.max = totalMushrooms
+        progressBar.progress = 1
+        createAndPlaceMushroomsWithinWalkables(totalMushrooms)
+    }
+
+    private fun createAndPlaceMushroomsWithinWalkables(numberOfMushrooms: Int) {
+        val mushroomImageResource = R.drawable.mushroom1 // Replace with your mushroom image resource ID
+
+        val random = Random()
+
+        walkableLayout.post {
+            // This code will be executed after the layout is measured
+
+            for (i in 0 until numberOfMushrooms) {
+                val mushroomImageView = ImageView(this)
+                mushroomImageView.setImageResource(mushroomImageResource)
+
+                // Set the layout parameters
+                val layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+                mushroomImageView.layoutParams = layoutParams
+
+                mushroomImageView.tag = "collectable"
+                // Add the mushroom ImageView to the layout
+                walkableLayout.addView(mushroomImageView)
+
+                // Set random X and Y coordinates within the selected walkable ImageView
+                val randomWalkableView = getRandomWalkableView()
+                setRandomPositionInWalkableView(randomWalkableView, mushroomImageView, random)
+            }
+        }
+    }
+
+    private fun setRandomPositionInWalkableView(walkableView: ImageView, imageView: ImageView, random: Random) {
+        val viewTreeObserver = walkableView.viewTreeObserver
+        viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                viewTreeObserver.removeOnPreDrawListener(this)
+
+                // Get the width and height of the mushroom ImageView
+                val mushroomWidth = imageView.width
+                val mushroomHeight = imageView.height
+
+                // Get the width and height of the selected walkable ImageView
+                val walkableWidth = walkableView.width
+                val walkableHeight = walkableView.height
+
+                // Set random X and Y coordinates within the selected walkable ImageView
+                val maxX = walkableWidth - mushroomWidth
+                val maxY = walkableHeight - mushroomHeight
+
+                Log.d("Debug","MaxX = $maxX; MaxY = $maxY; ")
+                Log.d("Debug","walkableWidth = $walkableWidth; walkableHeight = $walkableHeight; ")
+                Log.d("Debug","mushroomWidth = $mushroomWidth; mushroomHeight = $mushroomHeight; ")
+
+                val randomX = random.nextInt(maxX)
+                val randomY = random.nextInt(maxY)
+
+                // Set the position of the mushroom ImageView within the selected walkable ImageView
+                imageView.x = walkableView.x + randomX
+                imageView.y = walkableView.y + randomY
+
+                return true
+            }
+        })
+    }
+
+    // Helper function to get a random walkable ImageView from walkableLayout
+    private fun getRandomWalkableView(): ImageView {
+        val random = Random()
+        val walkableViews = mutableListOf<ImageView>()
+
+        for (i in 0 until walkableLayout.childCount) {
+            val childView = walkableLayout.getChildAt(i)
+            if (childView is ImageView && childView.tag?.toString()?.contains("walkable") == true) {
+                walkableViews.add(childView)
+            }
+        }
+
+        val walkableViewCount = walkableViews.size
+        val randomIndex = random.nextInt(walkableViewCount)
+        Log.d("Debug", "currentIndex/total = $randomIndex/$walkableViewCount")
+        return walkableViews[randomIndex]
     }
 
     private fun setupCordSystem(){
@@ -414,6 +501,29 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    private fun areRectanglesIntersecting(rect1: RectF, rect2: RectF): Boolean {
+        return rect1.left < rect2.right &&
+                rect1.right > rect2.left &&
+                rect1.top < rect2.bottom &&
+                rect1.bottom > rect2.top
+    }
+
+
+    // Function to check collision with a specific ImageView
+    private fun isColliding(characterRect: RectF, imageView: ImageView): Boolean {
+        val imageViewRect = RectF(
+            imageView.x,
+            imageView.y,
+            imageView.x + imageView.width,
+            imageView.y + imageView.height
+        )
+
+        // Check if the rectangles are intersecting
+        return areRectanglesIntersecting(characterRect, imageViewRect)
+    }
+
+
+
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
             val sides = -event.values[0]
@@ -425,35 +535,56 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 isFirstTime = false
             }
 
-            if (unitX != null && unitY != null){
+            if (unitX != null && unitY != null) {
                 val adjustedSides = (sides - baselineSides) * sensitivity
                 val adjustedUpdown = (updown - baselineUpdown) * sensitivity
 
                 val targetX = character.translationX + adjustedSides
                 val targetY = character.translationY + adjustedUpdown
 
-                // Limit character position to the screen boundaries
-                //character.translationX = character.translationX.coerceIn(0f, mainGame.width.toFloat())
-                //character.translationY = character.translationY.coerceIn(0f, mainGame.height.toFloat())
+                val characterRect = RectF(
+                    targetX,
+                    targetY,
+                    targetX + character.width,
+                    targetY + character.height
+                )
 
-                //Check for colisions
-                if(!isCollidingWithWall(targetX, targetY)) {
+                val walkableLayout = findViewById<ConstraintLayout>(R.id.group)
 
-                    // If no collision, update the character's position with smoothness
-                    character.translationX = lerp(character.translationX, targetX, smoothness)
-                    character.translationY = lerp(character.translationY, targetY, smoothness)
+                var isFound = false
+                // Iterate over all walkable areas in the layout
+                for (i in 0 until walkableLayout.childCount) {
+                    val walkableView = walkableLayout.getChildAt(i) as? ImageView
 
-                    // Limit character position to the screen boundaries
-                    character.translationX = character.translationX.coerceIn(0f, mainGame.width.toFloat() - character.width)
-                    character.translationY = character.translationY.coerceIn(0f, mainGame.height.toFloat() - character.height)
-
+                    walkableView?.let {
+                        if (isColliding(characterRect, walkableView)) {
+                            if (walkableView.tag.toString().contains("walkable")) {
+                                // Update the character's position only if it is colliding with this ImageView
+                                character.translationX = targetX.coerceIn(
+                                    walkableView.x- character.width,
+                                    walkableView.x + walkableView.width - 2*character.width
+                                )
+                                character.translationY = targetY.coerceIn(
+                                    walkableView.y- character.height,
+                                    walkableView.y + walkableView.height - 2*character.height
+                                )
+                                Log.d("Debug", "Character at:(${character.x},${character.y}); Pos checking (${walkableView.x} - ${walkableView.x + walkableView.width} )")
+                            } else {
+                                Log.d("Debug", "Colliding with tag:${walkableView.tag}")
+                            }
+                            // You can break the loop if you want to handle collisions with only one ImageView
+                            isFound = true
+                        }
+                    }
+                    if(isFound){
+                        break
+                    }
                 }
-
-                //texto.text = "up/down ${adjustedUpdown.toInt()}\nleft/right ${adjustedSides.toInt()}"
-
             }
         }
     }
+
+
 
     private fun getXCordOnScreen(x: Int): Float{
         return baseX + unitX!!.times(x)
@@ -473,34 +604,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private fun captureBaseline(updown: Float, sides: Float) {
         baselineSides = sides
         baselineUpdown = updown
-    }
-
-    private fun isCollidingWithWall(targetX: Float, targetY: Float): Boolean {
-        //Get player location and cords
-        val characterLocation = IntArray(2)
-        val characterLocation2 = IntArray(2)
-        character.getLocationInWindow(characterLocation)
-        character.getLocationOnScreen(characterLocation2)
-
-        if(characterLocation[0]<0 || characterLocation[1]<0){
-            return  true
-        }
-        val valX = characterLocation[0]*1f
-        val valY = characterLocation[1]*1f
-        val cordX = getXCord(valX)
-        val cordY = getYCord(valY)
-        //texto.text = "Cords : $cordX, $cordY."
-        println("Cords : $cordX, $cordY.")
-
-        //Get player orientation and next cordXY
-        val playerOriX = (targetX / (character.width*1f/2f)).toInt()
-        val playerOriY = (targetY / (character.height*1f/2f)).toInt()
-        println("orientation : $playerOriX, $playerOriY.")
-
-        //Check if next walkable[cordXY] is 1
-
-
-        return false // No collision with any wall
     }
 
     private fun lerp(start: Float, stop: Float, amount: Float): Float {
