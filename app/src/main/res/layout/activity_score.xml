@@ -357,7 +357,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:padding="10dp"
-                    android:text="Level10"
+                    android:text="Level"
                     android:textAlignment="center"
                     android:textSize="20dp" />
 
