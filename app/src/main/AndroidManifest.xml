@@ -24,7 +24,7 @@
         <activity android:name="pt.ipt.walkingsensor.PlayActivity" />
         <activity android:name="pt.ipt.walkingsensor.Register" />
         <activity android:name="pt.ipt.walkingsensor.LoginActivity" />
-        <activity android:name="pt.ipt.walkingsensor.levels.Level1" />
+        <activity android:name="pt.ipt.walkingsensor.levels.Level1"  android:screenOrientation="portrait"/>
         <activity android:name="pt.ipt.walkingsensor.levels.Level2"/>
         <activity android:name="pt.ipt.walkingsensor.MainActivity" />
         <activity android:name="pt.ipt.walkingsensor.LandingActivity"

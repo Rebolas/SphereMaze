@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context="pt.ipt.walkingsensor.LandingActivity">
 
+    <ImageView
+        android:id="@+id/BackgroundImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#B50000"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/landingimage" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
         android:text="@string/GameName"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="40sp"
         app:autoSizeMaxTextSize="60sp"
         app:autoSizeMinTextSize="12sp"
@@ -19,10 +33,19 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.218" />
+
+    <Button
+        android:id="@+id/ButtonSobre"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="52dp"
+        android:text="Sobre nós"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/LoginButLanding"
@@ -34,27 +57,17 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.82" />
+        app:layout_constraintVertical_bias="0.726" />
 
     <Button
         android:id="@+id/RegisterButLanding"
         android:layout_width="216dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="28dp"
         android:text="Registo"
         app:layout_constraintBottom_toTopOf="@+id/ButtonSobre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/ButtonSobre"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="140dp"
-        android:text="Sobre nós"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -66,4 +79,16 @@
         android:text="test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="392dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/BackgroundImage"
+        app:srcCompat="@drawable/button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
