@@ -17,8 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val buttonperfil = findViewById<ImageButton>(R.id.imageButtonPerfil)
-        buttonperfil.setOnClickListener {
+        val settingsButton = findViewById<Button>(R.id.settingsButton)
+        settingsButton.setOnClickListener {
+            val intent = Intent (this@MainActivity, SettingsActivity::class.java )
+            startActivity(intent)
+        }
+
+        val buttonPerfil = findViewById<ImageButton>(R.id.imageButtonPerfil)
+        buttonPerfil.setOnClickListener {
             val intent = Intent(this, PersonalDataActivity::class.java)
             startActivity(intent)
         }
