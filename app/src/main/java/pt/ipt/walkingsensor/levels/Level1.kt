@@ -14,8 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -29,28 +28,37 @@ import kotlinx.coroutines.launch
 import pt.ipt.WalkingSensorGame.R
 import java.sql.DriverManager.println
 import java.util.Random
-import kotlin.math.floor
+import java.util.Timer
+import java.util.TimerTask
 
 
 //Para duvidas verificar no video https://www.youtube.com/watch?v=xcsuDDQHrLo&ab_channel=Indently
 
 class Level1 : AppCompatActivity(), SensorEventListener {
 
-    private lateinit var walkableMatrix: Array<Array<Int>>
-    private lateinit var sensorManager: SensorManager
+    private lateinit var deadScreen: ConstraintLayout
+    private lateinit var blackScreen: TextView
     private lateinit var character: ImageView
     private lateinit var mainGame: ImageView
+    private lateinit var redNPCImage: ImageView
+    private lateinit var blueNPCImage: ImageView
+    private lateinit var greenNPCImage: ImageView
+
+    private lateinit var walkableMatrix: Array<Array<Int>>
+    private lateinit var sensorManager: SensorManager
     private lateinit var walkableLayout: ConstraintLayout
-    private lateinit var texto: TextView
+    private lateinit var collectables: ConstraintLayout
+    private lateinit var endingView: ImageView
     private lateinit var progressBar: ProgressBar
+    private var collectablesMissing = 0
     private var animSet = AnimatorSet()
     private var unitX: Float? = null
     private var unitY: Float? = null
     private var baseX: Int = 0
     private var baseY: Int = 0
+    private var isDead: Boolean = true
     private var screenWidth: Float = 0F
     private var screenHeight: Float = 0F
-    private val smoothness = 0.2f
     private val sensitivity = 6f
 
     // Baseline variables
@@ -81,13 +89,15 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level1)
 
-        //Setup the game
+        setupSensors()
         setupGame()
         setupCordSystem()
 
         //Start the game
         //Play fade-in animation
-        fadeAnimations()
+        //startAnimations()
+        startFastAnimations()
+
 
     }
     fun getScreenWidth(): Int {
@@ -98,19 +108,11 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         return Resources.getSystem().displayMetrics.heightPixels
     }
 
-    private fun fadeAnimations() {
 
-        //setup Black Screen
-        setupBlackScreen()
+    private fun startAnimations() {
 
         //Vars
-        var currentDuration = 0L
-        val blackScreen = findViewById<TextView>(R.id.blankTextView)
-        val scrollImage = findViewById<ImageView>(R.id.ImageScroll)
-        val scrollText =  findViewById<TextView>(R.id.textViewTypewritter)
-        val redNPCImage = findViewById<ImageView>(R.id.imageViewCharacterRed)
-        val blueNPCImage = findViewById<ImageView>(R.id.imageViewCharacterBlue)
-        val greenNPCImage = findViewById<ImageView>(R.id.imageViewCharacterGreen)
+        animSet = AnimatorSet()
         character.x = getScreenWidth() / 2f
         character.y = getScreenHeight()* (1 / 3f)
 
@@ -123,10 +125,10 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         //Play character going down from the middle of the screen
         //character appears and becomes huge because he's close to the screen
 
-        var playerMessageAnim1 = writeMessage("HAAAAAA!!!  ",3_000)
+        val playerMessageAnim1 = writeMessage("HAAAAAA!!!  ",3_000)
         val characterOnAnim = ObjectAnimator.ofFloat(character,"alpha",0f,1f)
         characterOnAnim.duration = 500
-        animSet.play(characterOnAnim,)
+        animSet.play(characterOnAnim)
         var scaleX = ObjectAnimator.ofFloat(character, "scaleX", 1f, 6f)
         var scaleY = ObjectAnimator.ofFloat(character, "scaleY", 1f, 6f)
         animSet.play(characterOnAnim).with(scaleX).with(scaleY).after(fadeBlackScreen1Half)
@@ -147,8 +149,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         var txt = "Mais um!? Coitado ainda não sabe o que lhe espera..."
         var duration = 4_000L
         val redMessageAnim1: AnimatorSet = writeMessage(txt,duration)
-        var redNpcOnAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
-        var redNpcOffAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
+        val redNpcOnAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",0f,1f)
+        val redNpcOffAnim1 = ObjectAnimator.ofFloat(redNPCImage,"alpha",1f,0f)
         redNpcOnAnim1.duration = 3_000
         redNpcOffAnim1.duration = 3_000
         redNpcOffAnim1.startDelay = duration + txt.length*50L // typeDuration
@@ -262,8 +264,97 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         fadeBlackScreen2Half.duration = 2_000
 
         animSet.play(fadeBlackScreen2Half).after(greenNpcOnAnim3)
-        animSet.doOnEnd { setupSensors()  }
+        animSet.doOnEnd {
+            setupProgressBarTimer()
+            isDead = false
+        }
         animSet.start()
+
+    }
+
+    private fun startFastAnimations()  {
+        //Vars
+        animSet = AnimatorSet()
+        character.x = getScreenWidth() / 2f
+        character.y = getScreenHeight()* (1 / 3f)
+
+        //Black screen
+        val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 1f, 0.5f)
+        fadeBlackScreen1Half.duration = 5_000
+        animSet.play(fadeBlackScreen1Half)
+
+        //Play "What is going on" animation
+        //Play character going down from the middle of the screen
+        //character appears and becomes huge because he's close to the screen
+
+        val playerMessageAnim1 = writeMessage("HAAAAAA!!!  ",3_000)
+        val characterOnAnim = ObjectAnimator.ofFloat(character,"alpha",0f,1f)
+        characterOnAnim.duration = 500
+        animSet.play(characterOnAnim)
+        var scaleX = ObjectAnimator.ofFloat(character, "scaleX", 1f, 6f)
+        var scaleY = ObjectAnimator.ofFloat(character, "scaleY", 1f, 6f)
+        animSet.play(characterOnAnim).with(scaleX).with(scaleY).after(fadeBlackScreen1Half)
+
+        animSet.play(playerMessageAnim1).after(characterOnAnim).after(1000)
+
+        //character "descends", just resizing gives the effect of apearing to be dropped down
+        scaleX = ObjectAnimator.ofFloat(character, "scaleX", 6f, 1f)
+        scaleX.duration = 3_000
+        scaleY = ObjectAnimator.ofFloat(character, "scaleY", 6f, 1f)
+        scaleY.duration = 3_000
+        animSet.play(scaleX).with(scaleY).after(characterOnAnim)
+
+        //Fade the rest out
+        val fadeBlackScreen2Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0.5f, 0.0f)
+        fadeBlackScreen2Half.duration = 2_000
+
+        animSet.play(fadeBlackScreen2Half).after(playerMessageAnim1)//.after(greenNpcOnAnim3)
+        animSet.doOnEnd {
+            setupProgressBarTimer()
+            isDead = false
+        }
+        animSet.start()
+
+    }
+
+    private fun setupProgressBarTimer() {
+        val t = Timer()
+        val tt: TimerTask = object : TimerTask() {
+            override fun run() {
+                if (progressBar.progress > 0) {
+                    runOnUiThread {
+                        progressBar.progress = progressBar.progress - 2
+                        Log.d("Debug", "progress/Max = ${progressBar.progress}/${progressBar.max}")
+                    }
+                } else {
+                    t.cancel()
+                    isDead = true
+                    runOnUiThread {
+                        gameOver()
+                    }
+                }
+            }
+        }
+
+        t.schedule(tt, 0, 500)
+    }
+
+    private fun gameOver() {
+        // Darken Screen
+        val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0f, 0.5f)
+        fadeBlackScreen1Half.duration = 2_500
+        fadeBlackScreen1Half.doOnEnd {
+
+
+            runOnUiThread {
+                deadScreen.visibility = View.VISIBLE
+            }
+
+        }
+        animSet = AnimatorSet()
+        animSet.play(fadeBlackScreen1Half)
+        animSet.start()
+
 
     }
 
@@ -314,7 +405,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
     // Animation https://stackoverflow.com/questions/4813995/set-alpha-opacity-of-layout
     private fun setupBlackScreen() {
-        val blackScreen = findViewById<TextView>(R.id.blankTextView)
         blackScreen.x = 0f
         blackScreen.y = 0f
         blackScreen.width = getScreenWidth()
@@ -323,9 +413,49 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
     }
 
+    private fun restartActivity() {
+        //reset vars
+        animSet = AnimatorSet()
+
+        //Fade All Black
+        val fadeBlackScreen: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0.5f, 0.0f)
+        val fadeDeadScreen: ValueAnimator = ObjectAnimator.ofFloat(deadScreen, "alpha", 0.5f, 0.0f)
+        fadeBlackScreen.duration = 2_000
+        fadeDeadScreen.duration = 2_000
+        animSet.play(fadeBlackScreen).with(fadeDeadScreen)
+        animSet.start()
+
+        startFastAnimations()
+        //startAnimations()
+        setupMushrooms()
+
+    }
+
     private fun setupGame() {
+
+        //Setup vars
+        blackScreen = findViewById(R.id.blackScreen)
         character = findViewById(R.id.character)
         mainGame = findViewById(R.id.IslandsImageView)
+        redNPCImage = findViewById(R.id.CharacterRed)
+        blueNPCImage = findViewById(R.id.CharacterBlue)
+        deadScreen = findViewById(R.id.deadScreen)
+        greenNPCImage = findViewById(R.id.CharacterGreen)
+        endingView = findViewById(R.id.endImageView)
+
+        //setup Black Screen
+        setupBlackScreen()
+
+        //back button
+        val backbutton = findViewById<Button>(R.id.backButton)
+        val restartButton = findViewById<Button>(R.id.restartButton)
+        backbutton.setOnClickListener{
+            goBack()
+        }
+        restartButton.setOnClickListener{
+                restartActivity()
+            }
+
         //texto = findViewById(R.id.texto)
 
         val mapHeight = 736
@@ -342,14 +472,29 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]""".trimIndent()
         walkableMatrix = stringToArray(input)
-        walkableLayout = findViewById(R.id.group)
+        walkableLayout = findViewById(R.id.walkablegroup)
+        collectables = findViewById(R.id.collectables)
 
-        //Setup mushrooms
+        setupMushrooms()
+
+    }
+
+    private fun setupMushrooms() {
         val totalMushrooms = 10
-        progressBar = findViewById(R.id.progressBar)
-        progressBar.max = totalMushrooms
-        progressBar.progress = 1
+        setupHealthBar(totalMushrooms)
+        collectablesMissing = totalMushrooms
+        Log.d("Debug","progressMax = ${progressBar.max}")
         createAndPlaceMushroomsWithinWalkables(totalMushrooms)
+    }
+
+    private fun setupHealthBar(number: Int) {
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.max = number * 10
+        progressBar.progress = progressBar.max
+    }
+
+    private fun goBack() {
+        this.finish()
     }
 
     private fun createAndPlaceMushroomsWithinWalkables(numberOfMushrooms: Int) {
@@ -357,7 +502,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
         val random = Random()
 
-        walkableLayout.post {
+        collectables.post {
             // This code will be executed after the layout is measured
 
             for (i in 0 until numberOfMushrooms) {
@@ -373,7 +518,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
                 mushroomImageView.tag = "collectable"
                 // Add the mushroom ImageView to the layout
-                walkableLayout.addView(mushroomImageView)
+                collectables.addView(mushroomImageView)
 
                 // Set random X and Y coordinates within the selected walkable ImageView
                 val randomWalkableView = getRandomWalkableView()
@@ -451,7 +596,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
             println(" mainGame : "+mainGame.x.toString()+", "+ mainGame.y)
             println(" Screen : $screenWidth, $screenHeight")
             mainGame.getLocationInWindow(mainGameLocation)
-            val a = character.height
             baseX = mainGameLocation[0]
             baseY = mainGameLocation[1] + 32
 
@@ -465,8 +609,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
             val mapHeight = 736
             val mapWidth = 416
-            val xratio = screenWidth
-            val yratio = screenHeight
 
             //Definir tiles
             unitX = (character.width/2f)
@@ -474,18 +616,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
             character.layoutParams.width = (character.width * (1- (mapWidth/screenWidth))).toInt()
             character.layoutParams.height = (character.height * (1- (mapHeight/screenHeight))).toInt()
-            character.requestLayout();
+            character.requestLayout()
 
-            //Cordenadas teste
-            val cordX = 0
-            val cordY = 0
-
-            //Desvios para centrar
-            val desvioX = character.width/(1/3f)
-            val desvioY = character.height*(2/3f)
-
-            val valX =getXCordOnScreen(cordX)
-            val valY =getYCordOnScreen(cordY)
         }
     }
 
@@ -508,7 +640,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 rect1.bottom > rect2.top
     }
 
-
     // Function to check collision with a specific ImageView
     private fun isColliding(characterRect: RectF, imageView: ImageView): Boolean {
         val imageViewRect = RectF(
@@ -522,10 +653,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         return areRectanglesIntersecting(characterRect, imageViewRect)
     }
 
-
-
     override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
+        if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER && !isDead) {
             val sides = -event.values[0]
             val updown = event.values[1]
 
@@ -549,7 +678,31 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                     targetY + character.height
                 )
 
-                val walkableLayout = findViewById<ConstraintLayout>(R.id.group)
+
+
+                var isCollectableFound = false
+                for (i in 0 until collectables.childCount) {
+                    val collectableView = collectables.getChildAt(i) as? ImageView
+                    collectableView?.let {
+                        if (isColliding(characterRect, collectableView)) {
+                            //Found collectable
+                            Log.d("Debug", "Colliding with collectable:${collectableView.tag}")
+                            if (collectableView.tag.toString().contains("collectable")){
+                                collectableView.visibility = View.GONE
+                                progressBar.progress += 10
+                                isCollectableFound= true
+                                collectableView.tag = "collected"
+                                collectablesMissing--
+                                if (collectablesMissing == 0){
+                                    endingView.setBackgroundResource(R.drawable.exitopen)
+                                    Log.d("Debug","FIM ")
+                                }
+                            }
+
+                        }
+                    }
+                    if(isCollectableFound){break}
+                }
 
                 var isFound = false
                 // Iterate over all walkable areas in the layout
@@ -568,7 +721,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                                     walkableView.y- character.height,
                                     walkableView.y + walkableView.height - 2*character.height
                                 )
-                                Log.d("Debug", "Character at:(${character.x},${character.y}); Pos checking (${walkableView.x} - ${walkableView.x + walkableView.width} )")
+                                //Log.d("Debug", "Character at:(${character.x},${character.y}); Pos checking (${walkableView.x} - ${walkableView.x + walkableView.width} )")
                             } else {
                                 Log.d("Debug", "Colliding with tag:${walkableView.tag}")
                             }
@@ -582,23 +735,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 }
             }
         }
-    }
-
-
-
-    private fun getXCordOnScreen(x: Int): Float{
-        return baseX + unitX!!.times(x)
-    }
-    private fun getYCordOnScreen(y: Int): Float{
-        return baseY + unitY!!.times(y)
-    }
-
-    private fun getXCord(valX: Float): Float{
-        return floor((valX -baseX)/ unitX!!)
-    }
-
-    private fun getYCord(valY: Float) : Float{
-        return floor((valY - baseY) / unitY!!)
     }
 
     private fun captureBaseline(updown: Float, sides: Float) {

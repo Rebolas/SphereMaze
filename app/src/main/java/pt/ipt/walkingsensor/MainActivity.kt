@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val buttonscoremain = findViewById<Button>(R.id.buttonScores)
+        val buttonscoremain = findViewById<ImageButton>(R.id.scoreButton)
         buttonscoremain.setOnClickListener {
             val intent = Intent(this, ScoreActivity::class.java)
             startActivity(intent)
         }
 
-            val buttonclick = findViewById<Button>(R.id.Playbutton)
+            val buttonclick = findViewById<ImageButton>(R.id.playButton)
             buttonclick.setOnClickListener {
                 val intent = Intent(this, Level1::class.java)
                 startActivity(intent)

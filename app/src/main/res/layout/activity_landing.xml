@@ -7,6 +7,7 @@
     tools:context="pt.ipt.walkingsensor.LandingActivity">
 
     <ImageView
+        android:contentDescription="Background Image"
         android:id="@+id/BackgroundImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -38,39 +39,6 @@
         app:layout_constraintVertical_bias="0.218" />
 
     <Button
-        android:id="@+id/ButtonSobre"
-        android:layout_width="165dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="52dp"
-        android:text="Sobre nós"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/LoginButLanding"
-        android:layout_width="216dp"
-        android:layout_height="54dp"
-        android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterButLanding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.726" />
-
-    <Button
-        android:id="@+id/RegisterButLanding"
-        android:layout_width="216dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="28dp"
-        android:text="Registo"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonSobre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnPlayInBg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,14 +49,85 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/loginLandingButton"
+        android:layout_width="199dp"
+        android:layout_height="52dp"
+        android:background="@drawable/buttoncustomized"
+        android:contentDescription="LoginButtonImage"
+        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <TextView
+        android:id="@+id/loginLandingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="392dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/BackgroundImage"
-        app:srcCompat="@drawable/button" />
+        android:text="Login"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/loginLandingButton"
+        app:layout_constraintEnd_toEndOf="@+id/loginLandingButton"
+        app:layout_constraintStart_toStartOf="@+id/loginLandingButton"
+        app:layout_constraintTop_toTopOf="@+id/loginLandingButton"
+        app:layout_constraintVertical_bias="0.38" />
+
+
+    <ImageButton
+        android:id="@+id/registerLandingButton"
+        android:layout_width="199dp"
+        android:layout_height="52dp"
+        android:background="@drawable/buttoncustomized"
+        android:contentDescription="RegisterButtonImage"
+        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintTop_toBottomOf="@+id/loginLandingButton"
+        app:layout_constraintVertical_bias="0.364" />
+
+    <TextView
+        android:id="@+id/registerLandingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/registerLandingButton"
+        app:layout_constraintEnd_toEndOf="@+id/registerLandingButton"
+        app:layout_constraintStart_toStartOf="@+id/registerLandingButton"
+        app:layout_constraintTop_toTopOf="@+id/registerLandingButton"
+        app:layout_constraintVertical_bias="0.38" />
+
+
+    <ImageButton
+        android:id="@+id/AboutUsLandingButton"
+        android:layout_width="199dp"
+        android:layout_height="52dp"
+        android:background="@drawable/buttoncustomized"
+        android:contentDescription="PlayButtonImage"
+        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintTop_toBottomOf="@+id/registerLandingButton"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <TextView
+        android:id="@+id/AboutUsLandingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sobre Nós"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/AboutUsLandingButton"
+        app:layout_constraintEnd_toEndOf="@+id/AboutUsLandingButton"
+        app:layout_constraintStart_toStartOf="@+id/AboutUsLandingButton"
+        app:layout_constraintTop_toTopOf="@+id/AboutUsLandingButton"
+        app:layout_constraintVertical_bias="0.38" />
 </androidx.constraintlayout.widget.ConstraintLayout>

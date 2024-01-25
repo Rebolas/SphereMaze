@@ -21,8 +21,9 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.loginButton)
         val voltarButton = findViewById<Button>(R.id.voltarButtLog)
         voltarButton.setOnClickListener {
-            val intent = Intent(this@LoginActivity, LandingActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this@LoginActivity, LandingActivity::class.java)
+            //startActivity(intent)
+            this.finish()
         }
 
         loginButton.setOnClickListener{
@@ -36,13 +37,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun fazerLogin(name_email: String?, password: String?, onResult: (Utilizador?) -> Unit){
-        var utilizador: Utilizador? = null
-        if (name_email.toString().contains("@")){
-            utilizador = Utilizador(null,name_email , password)
+        //var utilizador: Utilizador?
+        val utilizador = if (name_email.toString().contains("@")){
+            Utilizador(null,name_email , password)
         }else{
-            utilizador = Utilizador(name_email,null , password)
+            Utilizador(name_email,null , password)
         }
-        val call = pt.ipt.walkingsensor.RetrofitInitializer().connector().obterLogin(utilizador)
+        val call = RetrofitInitializer().connector().obterLogin(utilizador)
         call.enqueue(
             object:Callback<APIResult> {
                 override fun onFailure(call: Call<APIResult>, t: Throwable){

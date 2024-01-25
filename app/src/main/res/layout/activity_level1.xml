@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:contentDescription="BackgroundImg"
         android:scaleType="fitXY"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +24,7 @@
     <!-- Invisible Wall 2 -->
 
     <ImageView
+        android:contentDescription="Islands"
         android:id="@+id/IslandsImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -34,6 +34,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/teste1" />
+
+    <ImageView
+        android:contentDescription="Ending"
+        android:id="@+id/endImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="596dp"
+        android:background="@drawable/exitclosed"
+        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
+        app:layout_constraintStart_toStartOf="@+id/IslandsImageView"
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView" />
 
     <ImageView
         android:id="@+id/character"
@@ -51,7 +66,18 @@
         app:srcCompat="@drawable/character100pcent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/group"
+        android:id="@+id/collectables"
+        android:layout_width="400dp"
+        android:layout_height="785dp"
+        app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
+        app:layout_constraintStart_toStartOf="@+id/IslandsImageView"
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/walkablegroup"
         android:layout_width="400dp"
         android:layout_height="785dp"
         app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
@@ -60,6 +86,7 @@
         app:layout_constraintTop_toTopOf="@+id/IslandsImageView">
 
         <ImageView
+            android:contentDescription="Walkable place"
             android:id="@+id/walkable2"
             android:layout_width="253dp"
             android:layout_height="141dp"
@@ -73,6 +100,7 @@
             app:layout_constraintVertical_bias="0.878" />
 
         <ImageView
+            android:contentDescription="Walkable place"
             android:id="@+id/walkable1"
             android:layout_width="44dp"
             android:layout_height="189dp"
@@ -89,6 +117,7 @@
             app:layout_constraintVertical_bias="0.699" />
 
         <ImageView
+            android:contentDescription="Walkable place"
             android:id="@+id/Walkable"
             android:layout_width="351dp"
             android:layout_height="392dp"
@@ -103,21 +132,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/blankTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:alpha="1"
-        android:background="#000000"
-        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageView"
-        app:layout_constraintEnd_toEndOf="@id/BackgroundImageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/BackgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/BackgroundImageView"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="invisible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -134,7 +148,80 @@
         app:layout_constraintTop_toTopOf="@+id/IslandsImageView"
         app:layout_constraintVertical_bias="0.00999999" />
 
+    <TextView
+        android:id="@+id/blackScreen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:alpha="1"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="invisible" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/deadScreen"
+        android:layout_width="393dp"
+        android:layout_height="785dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/IslandsImageView"
+        app:layout_constraintEnd_toEndOf="@id/IslandsImageView"
+        app:layout_constraintStart_toStartOf="@id/IslandsImageView"
+        app:layout_constraintTop_toTopOf="@id/IslandsImageView"
+        tools:visibility="visible">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="133dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="129dp"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="131dp"
+            android:layout_marginBottom="370dp"
+            android:text="Back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restartButton" />
+
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="133dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="471dp"
+            android:text="Restart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDied" />
+
+        <TextView
+            android:id="@+id/textViewDied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="168dp"
+            android:layout_marginTop="199dp"
+            android:layout_marginEnd="169dp"
+            android:layout_marginBottom="567dp"
+            android:text="You Died"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ImageView
+        android:contentDescription="Image Scroll for showing messages"
         android:id="@+id/ImageScroll"
         android:layout_width="408dp"
         android:layout_height="218dp"
@@ -160,7 +247,8 @@
         app:layout_constraintVertical_bias="0.479" />
 
     <ImageView
-        android:id="@+id/imageViewCharacterGreen"
+        android:contentDescription="Green NPC"
+        android:id="@+id/CharacterGreen"
         android:layout_width="156dp"
         android:layout_height="283dp"
         android:alpha="0"
@@ -173,25 +261,27 @@
         app:srcCompat="@drawable/green" />
 
     <ImageView
-        android:id="@+id/imageViewCharacterBlue"
+        android:contentDescription="Blue NPC"
+        android:id="@+id/CharacterBlue"
         android:layout_width="144dp"
         android:layout_height="248dp"
         android:layout_marginEnd="100dp"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewCharacterGreen"
+        app:layout_constraintEnd_toEndOf="@+id/CharacterGreen"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.575"
         app:srcCompat="@drawable/blue" />
 
     <ImageView
-        android:id="@+id/imageViewCharacterRed"
+        android:contentDescription="Red NPC"
+        android:id="@+id/CharacterRed"
         android:layout_width="149dp"
         android:layout_height="278dp"
         android:layout_marginStart="112dp"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageViewCharacterGreen"
+        app:layout_constraintStart_toStartOf="@+id/CharacterGreen"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.57"
         app:srcCompat="@drawable/red" />

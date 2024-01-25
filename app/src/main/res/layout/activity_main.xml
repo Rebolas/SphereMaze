@@ -7,6 +7,7 @@
     tools:context="pt.ipt.walkingsensor.MainActivity">
 
     <ImageView
+        android:contentDescription="background Image"
         android:id="@+id/BackgroundImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,6 +38,7 @@
         android:layout_width="83dp"
         android:layout_height="50dp"
         android:layout_marginTop="4dp"
+        android:contentDescription="Settings"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.902"
@@ -61,20 +63,9 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.081" />
 
-    <Button
-        android:id="@+id/Playbutton"
-        android:layout_width="144dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/playBtn"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <ImageButton
         android:id="@+id/imageButtonPerfil"
+        android:contentDescription=" Profile Image"
         android:layout_width="68dp"
         android:layout_height="68dp"
         android:layout_marginTop="20dp"
@@ -107,29 +98,60 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/buttonScores"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="Scores"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Playbutton"
-        app:layout_constraintVertical_bias="0.0" />
-
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/playButton"
+        android:layout_width="199dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="135dp"
+        android:background="@drawable/buttoncustomized"
+        android:contentDescription="PlayButtonImage"
+        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/playTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="392dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/BackgroundImage"
-        app:srcCompat="@drawable/button" />
+        android:text="@string/playBtn"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/playButton"
+        app:layout_constraintEnd_toEndOf="@+id/playButton"
+        app:layout_constraintStart_toStartOf="@+id/playButton"
+        app:layout_constraintTop_toTopOf="@+id/playButton"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <ImageButton
+        android:id="@+id/scoreButton"
+        android:layout_width="199dp"
+        android:layout_height="52dp"
+        android:background="@drawable/buttoncustomized"
+        android:contentDescription="PlayButtonImage"
+        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintTop_toBottomOf="@+id/playButton"
+        app:layout_constraintVertical_bias="0.413" />
+
+    <TextView
+        android:id="@+id/ScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scores"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/scoreButton"
+        app:layout_constraintEnd_toEndOf="@+id/scoreButton"
+        app:layout_constraintStart_toStartOf="@+id/scoreButton"
+        app:layout_constraintTop_toTopOf="@+id/scoreButton"
+        app:layout_constraintVertical_bias="0.38" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
