@@ -7,11 +7,11 @@
     tools:context="pt.ipt.walkingsensor.MainActivity">
 
     <ImageView
-        android:contentDescription="background Image"
         android:id="@+id/BackgroundImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#B50000"
+        android:contentDescription="background Image"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +49,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="161dp"
         android:text="@string/GameName"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -60,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/BackgroundImage"
         app:layout_constraintVertical_bias="0.081" />
 
     <ImageButton
@@ -113,7 +114,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/playTextView"
+        android:id="@+id/registerButttonTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/playBtn"

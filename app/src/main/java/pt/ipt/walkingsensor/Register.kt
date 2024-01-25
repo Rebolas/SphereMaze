@@ -3,7 +3,7 @@ package pt.ipt.walkingsensor
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import pt.ipt.WalkingSensorGame.R
 import pt.ipt.walkingsensor.model.APIResult
@@ -17,17 +17,19 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val voltarButton = findViewById<Button>(R.id.voltarRegisterButton)
-        val registerButton = findViewById<Button>(R.id.registerButton)
+        val voltarButton = findViewById<ImageButton>(R.id.backButtonRegister)
+
+        val registerButton = findViewById<ImageButton>(R.id.registerButton)
         voltarButton.setOnClickListener {
-            val intent = Intent(this@Register, LandingActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this@Register, LandingActivity::class.java)
+            //startActivity(intent)
+            this.finish()
         }
 
         registerButton.setOnClickListener {
-            val name = findViewById<TextView>(R.id.UsernameTextview).text
+            val name = findViewById<TextView>(R.id.name_emailTextLogin).text
             val email = findViewById<TextView>(R.id.EmailTextView).text
-            val password = findViewById<TextView>(R.id.TextViewPassword).text
+            val password = findViewById<TextView>(R.id.PasswordLoginInput).text
             fazerRegisto(name.toString(), email.toString(), password.toString()) {
                 //Toast.makeText(this,"Added " + it?.message + ", " + it?.token,Toast.LENGTH_SHORT).show()
             }

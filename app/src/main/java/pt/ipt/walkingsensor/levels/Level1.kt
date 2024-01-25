@@ -43,13 +43,13 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private lateinit var redNPCImage: ImageView
     private lateinit var blueNPCImage: ImageView
     private lateinit var greenNPCImage: ImageView
-
     private lateinit var walkableMatrix: Array<Array<Int>>
     private lateinit var sensorManager: SensorManager
     private lateinit var walkableLayout: ConstraintLayout
     private lateinit var collectables: ConstraintLayout
     private lateinit var endingView: ImageView
     private lateinit var progressBar: ProgressBar
+
     private var collectablesMissing = 0
     private var animSet = AnimatorSet()
     private var unitX: Float? = null
@@ -57,8 +57,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private var baseX: Int = 0
     private var baseY: Int = 0
     private var isDead: Boolean = true
-    private var screenWidth: Float = 0F
-    private var screenHeight: Float = 0F
     private val sensitivity = 6f
 
     // Baseline variables
@@ -91,10 +89,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
         setupSensors()
         setupGame()
-        setupCordSystem()
 
         //Start the game
-        //Play fade-in animation
         //startAnimations()
         startFastAnimations()
 
@@ -435,47 +431,65 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
         //Setup vars
         blackScreen = findViewById(R.id.blackScreen)
-        character = findViewById(R.id.character)
+        endingView = findViewById(R.id.endImageView)
         mainGame = findViewById(R.id.IslandsImageView)
+        deadScreen = findViewById(R.id.deadScreen)
+        character = findViewById(R.id.character)
+        walkableLayout = findViewById(R.id.walkablegroup)
+        collectables = findViewById(R.id.collectables)
+
         redNPCImage = findViewById(R.id.CharacterRed)
         blueNPCImage = findViewById(R.id.CharacterBlue)
-        deadScreen = findViewById(R.id.deadScreen)
         greenNPCImage = findViewById(R.id.CharacterGreen)
-        endingView = findViewById(R.id.endImageView)
 
         //setup Black Screen
         setupBlackScreen()
 
-        //back button
+        //setup End Screen
+        setupEndScreen()
+
+        //setup Character
+        setupCharacter()
+
+        //Plant mushrooms
+        setupMushrooms()
+
+    }
+
+    private fun setupCharacter() {
+
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
+        val screenWidth = size.x.toFloat()
+        val screenHeight = size.y.toFloat()
+
+        character.post{
+
+            val mapHeight = 736
+            val mapWidth = 416
+
+            //Definir tiles
+            unitX = (character.width/2f)
+            unitY = (character.height/2f)
+
+            character.layoutParams.width = (character.width * (1- (mapWidth/screenWidth))).toInt()
+            character.layoutParams.height = (character.height * (1- (mapHeight/screenHeight))).toInt()
+            character.requestLayout()
+
+        }
+    }
+
+    private fun setupEndScreen() {
         val backbutton = findViewById<Button>(R.id.backButton)
         val restartButton = findViewById<Button>(R.id.restartButton)
         backbutton.setOnClickListener{
             goBack()
         }
         restartButton.setOnClickListener{
-                restartActivity()
-            }
-
-        //texto = findViewById(R.id.texto)
-
-        val mapHeight = 736
-        val mapWidth = 416
-        val baseCharXY = 32
-
-        //Init temporario, vem da API
-        val input = """[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 
-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 
-0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 
-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]""".trimIndent()
-        walkableMatrix = stringToArray(input)
-        walkableLayout = findViewById(R.id.walkablegroup)
-        collectables = findViewById(R.id.collectables)
-
-        setupMushrooms()
+            restartActivity()
+        }
 
     }
 
@@ -498,7 +512,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     }
 
     private fun createAndPlaceMushroomsWithinWalkables(numberOfMushrooms: Int) {
-        val mushroomImageResource = R.drawable.mushroom1 // Replace with your mushroom image resource ID
 
         val random = Random()
 
@@ -507,7 +520,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
             for (i in 0 until numberOfMushrooms) {
                 val mushroomImageView = ImageView(this)
-                mushroomImageView.setImageResource(mushroomImageResource)
+                mushroomImageView.setImageResource(R.drawable.mushroom1 )
 
                 // Set the layout parameters
                 val layoutParams = ConstraintLayout.LayoutParams(
@@ -579,48 +592,6 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         return walkableViews[randomIndex]
     }
 
-    private fun setupCordSystem(){
-
-        // Get screen dimensions
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-
-        screenWidth = size.x.toFloat()
-        screenHeight = size.y.toFloat()
-
-        //Define the baseXY of the cscreen based on the character
-        mainGame.post {
-            val mainGameLocation = IntArray(2)
-
-            println(" mainGame : "+mainGame.x.toString()+", "+ mainGame.y)
-            println(" Screen : $screenWidth, $screenHeight")
-            mainGame.getLocationInWindow(mainGameLocation)
-            baseX = mainGameLocation[0]
-            baseY = mainGameLocation[1] + 32
-
-            //baseY = (mainGame.height - screenHeight).toInt()
-            //baseY = (screenHeight - mainGame.height).toInt() * -1
-        }
-
-
-        character.post{
-            //Definir tamanho da personagem baseado no resizing
-
-            val mapHeight = 736
-            val mapWidth = 416
-
-            //Definir tiles
-            unitX = (character.width/2f)
-            unitY = (character.height/2f)
-
-            character.layoutParams.width = (character.width * (1- (mapWidth/screenWidth))).toInt()
-            character.layoutParams.height = (character.height * (1- (mapHeight/screenHeight))).toInt()
-            character.requestLayout()
-
-        }
-    }
-
     private fun setupSensors() {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
@@ -664,76 +635,80 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                 isFirstTime = false
             }
 
-            if (unitX != null && unitY != null) {
-                val adjustedSides = (sides - baselineSides) * sensitivity
-                val adjustedUpdown = (updown - baselineUpdown) * sensitivity
+            val adjustedSides = (sides - baselineSides) * sensitivity
+            val adjustedUpdown = (updown - baselineUpdown) * sensitivity
 
-                val targetX = character.translationX + adjustedSides
-                val targetY = character.translationY + adjustedUpdown
+            //calculate final pos
+            val targetX = character.translationX + adjustedSides
+            val targetY = character.translationY + adjustedUpdown
 
-                val characterRect = RectF(
-                    targetX,
-                    targetY,
-                    targetX + character.width,
-                    targetY + character.height
-                )
+            val characterRect = RectF(
+                targetX,
+                targetY,
+                targetX + character.width,
+                targetY + character.height
+            )
 
 
 
-                var isCollectableFound = false
-                for (i in 0 until collectables.childCount) {
-                    val collectableView = collectables.getChildAt(i) as? ImageView
-                    collectableView?.let {
-                        if (isColliding(characterRect, collectableView)) {
-                            //Found collectable
-                            Log.d("Debug", "Colliding with collectable:${collectableView.tag}")
-                            if (collectableView.tag.toString().contains("collectable")){
-                                collectableView.visibility = View.GONE
-                                progressBar.progress += 10
-                                isCollectableFound= true
-                                collectableView.tag = "collected"
-                                collectablesMissing--
-                                if (collectablesMissing == 0){
-                                    endingView.setBackgroundResource(R.drawable.exitopen)
-                                    Log.d("Debug","FIM ")
-                                }
+            //Collisions with collectables
+            var isCollectableFound = false
+            for (i in 0 until collectables.childCount) {
+                val collectableView = collectables.getChildAt(i) as? ImageView
+                collectableView?.let {
+                    if (isColliding(characterRect, collectableView)) {
+                        //Found collectable
+                        Log.d("Debug", "Colliding with collectable:${collectableView.tag}")
+                        if (collectableView.tag.toString().contains("collectable")){
+                            collectableView.visibility = View.GONE
+                            progressBar.progress += 10
+                            isCollectableFound= true
+                            collectableView.tag = "collected"
+                            collectablesMissing--
+                            if (collectablesMissing == 0){
+                                endingView.setBackgroundResource(R.drawable.exitopen)
+                                Log.d("Debug","FIM ")
                             }
-
                         }
+
                     }
-                    if(isCollectableFound){break}
                 }
+                if(isCollectableFound){break}
+            }
 
-                var isFound = false
-                // Iterate over all walkable areas in the layout
-                for (i in 0 until walkableLayout.childCount) {
-                    val walkableView = walkableLayout.getChildAt(i) as? ImageView
+            //Collisions with walls
 
-                    walkableView?.let {
-                        if (isColliding(characterRect, walkableView)) {
-                            if (walkableView.tag.toString().contains("walkable")) {
-                                // Update the character's position only if it is colliding with this ImageView
-                                character.translationX = targetX.coerceIn(
-                                    walkableView.x- character.width,
-                                    walkableView.x + walkableView.width - 2*character.width
-                                )
-                                character.translationY = targetY.coerceIn(
-                                    walkableView.y- character.height,
-                                    walkableView.y + walkableView.height - 2*character.height
-                                )
-                                //Log.d("Debug", "Character at:(${character.x},${character.y}); Pos checking (${walkableView.x} - ${walkableView.x + walkableView.width} )")
-                            } else {
-                                Log.d("Debug", "Colliding with tag:${walkableView.tag}")
-                            }
-                            // You can break the loop if you want to handle collisions with only one ImageView
-                            isFound = true
+            var isFound = false
+            // Iterate over all walkable areas in the layout
+            for (i in 0 until walkableLayout.childCount) {
+                val walkableView = walkableLayout.getChildAt(i) as? ImageView
+
+                walkableView?.let {
+                    if (isColliding(characterRect, walkableView)) {
+                        if (walkableView.tag.toString().contains("walkable")) {
+                            // Update the character's position only if it is colliding with this ImageView
+                            character.translationX = targetX.coerceIn(
+                                walkableView.x- character.width,
+                                walkableView.x + walkableView.width - 2*character.width
+                            )
+
+                            character.translationY = targetY.coerceIn(
+                                walkableView.y- character.height,
+                                walkableView.y + walkableView.height - 2*character.height
+                            )
+                            //Log.d("Debug", "Character at:(${character.x},${character.y}); Pos checking (${walkableView.x} - ${walkableView.x + walkableView.width} )")
+                        } else {
+                            Log.d("Debug", "Colliding with tag:${walkableView.tag}")
                         }
+                        // You can break the loop if you want to handle collisions with only one ImageView
+                        isFound = true
                     }
-                    if(isFound){
-                        break
-                    }
+                }
+                if(isFound){
+                    break
                 }
             }
+
         }
     }
 

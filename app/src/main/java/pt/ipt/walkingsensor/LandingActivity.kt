@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import pt.ipt.WalkingSensorGame.R
 import pt.ipt.walkingsensor.service.BackgroundMusic
@@ -18,11 +19,11 @@ class LandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
 
-        //          TEST CODE
-        val btnPlay = findViewById<Button>(R.id.btnPlayInBg)
-
-        btnPlay.setOnClickListener {
+        val soundButton = findViewById<ImageButton>(R.id.soundButton)
+        val soundText = findViewById<TextView>(R.id.SoundLandingTextView)
+        soundButton.setOnClickListener {
             if (isMusicPlaying) {
+                soundText.text = "Sound off"
                 stopService(
                     Intent(
                         this@LandingActivity,
@@ -31,6 +32,7 @@ class LandingActivity : AppCompatActivity() {
                 )
                 isMusicPlaying = false
             } else {
+                soundText.text = "Sound On"
                 Log.d("mylog", "Button Click")
                 startService(
                     Intent(

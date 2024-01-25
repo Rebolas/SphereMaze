@@ -82,7 +82,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/PasswordLoginInput"
+                            android:id="@+id/PasswordPDInput"
                             android:layout_width="match_parent"
                             android:layout_height="51dp"
                             android:layout_below="@+id/name_emailText"
