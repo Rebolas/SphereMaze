@@ -27,7 +27,7 @@
         android:layout_height="match_parent">
 
 
-        <EditText
+       <!-- <EditText
             android:id="@+id/PasswordText"
             android:layout_width="265dp"
             android:layout_height="58dp"
@@ -38,16 +38,15 @@
             android:ems="10"
             android:hint="12345"
             android:inputType="textPassword"
-            app:layout_constraintHorizontal_bias="0.486" />
+            app:layout_constraintHorizontal_bias="0.486" />-->
 
         <TextView
             android:id="@+id/textViewUserEmail"
             android:layout_width="118dp"
             android:layout_height="28dp"
             android:layout_below="@+id/textView2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="219dp"
+            android:layout_alignStart="@+id/name_emailText"
+            android:layout_marginTop="37dp"
             android:text="Username/Email:"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/name_emailText"
@@ -59,42 +58,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name_emailText"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="34dp"
-            android:layout_marginEnd="275dp"
+            android:layout_alignStart="@+id/etPasswordLayout"
             android:text="Password:"
             android:textColor="#FFFFFF"
             app:layout_constraintHorizontal_bias="0.10" />
 
-        <!--<com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etPasswordLayout"
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewPasswaord"
-            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="76dp"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/PasswordLoginInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="51dp"
                 android:layout_below="@+id/name_emailText"
-                android:hint="12345"
+                android:background="#FFFFFF"
                 android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
             android:id="@+id/name_emailText"
             android:layout_width="267dp"
             android:layout_height="57dp"
             android:layout_below="@+id/textViewUserEmail"
-            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="13dp"
-            android:layout_marginEnd="73dp"
             android:ems="10"
-            android:hint="JohnDoe"
             android:inputType="text"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
@@ -105,10 +100,9 @@
             android:id="@+id/loginButton"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/PasswordText"
-            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/etPasswordLayout"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="43dp"
-            android:layout_marginEnd="151dp"
             android:layout_marginBottom="16dp"
             android:text="Login"
             app:layout_constraintHorizontal_bias="0.479" />
@@ -118,20 +112,19 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loginButton"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="151dp"
+            android:layout_centerHorizontal="true"
             android:text="Voltar"
             app:layout_constraintHorizontal_bias="0.475"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="330dp"
-            android:layout_height="81dp"
+            android:layout_width="218dp"
+            android:layout_height="83dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="69dp"
-            android:layout_marginEnd="31dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="65dp"
             android:text="Login"
             android:textAlignment="center"
             android:textColor="#FFFFFF"

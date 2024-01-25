@@ -27,7 +27,7 @@ class PersonalDataActivity : AppCompatActivity() {
         val nameEdit = findViewById<EditText>(R.id.editUsernamePerfil)
         val emailEdit = findViewById<EditText>(R.id.editEmailPerfil)
 
-        val buttonEditarDados=findViewById<Button>(R.id.buttonEditarDados)
+        val buttonEditarDados = findViewById<Button>(R.id.buttonEditarDados)
         buttonEditarDados.setOnClickListener{
         if (!nameEdit.isVisible) {
             nameEdit.visibility = View.VISIBLE

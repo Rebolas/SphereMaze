@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val logoutButton = findViewById<Button>(R.id.LogoutButton)
+        logoutButton.setOnClickListener {
+            closeActivity()
+        }
+
         val buttonPerfil = findViewById<ImageButton>(R.id.imageButtonPerfil)
         buttonPerfil.setOnClickListener {
             val intent = Intent(this, PersonalDataActivity::class.java)
@@ -43,4 +48,8 @@ class MainActivity : AppCompatActivity() {
                 //overridePendingTransition(R.drawable.fade_in, R.drawable.fade_out);
             }
         }
+
+    private fun closeActivity() {
+        this.finish()
     }
+}

@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener{
             val name_email = findViewById<TextView>(R.id.name_emailText).text
-            val password = findViewById<TextView>(R.id.PasswordText).text
+            val password = findViewById<TextView>(R.id.PasswordLoginInput).text
             fazerLogin(name_email.toString(), password.toString()){
                 Toast.makeText(this,"login efectuado com sucesso" ,Toast.LENGTH_LONG).show()
             }

@@ -37,6 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="52dp"
                         android:paddingBottom="10dp"
+                        android:layout_centerHorizontal="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -48,11 +49,8 @@
                         android:layout_width="187dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/imageView3"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="113dp"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="6dp"
-                        android:layout_marginEnd="111dp"
                         android:outlineProvider="none"
                         android:text="TóZé"
                         android:textAlignment="center"
@@ -62,12 +60,11 @@
 
                     <EditText
                         android:id="@+id/editEmailPerfil"
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
+                        android:layout_width="241dp"
+                        android:layout_height="55dp"
                         android:layout_below="@id/editUsernamePerfil"
-                        android:layout_marginTop="33dp"
-                        android:background="#00ffffff"
-
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
                         android:outlineProvider="none"
                         android:text="TóZé@TóZé.vom"
                         android:textAlignment="center"
@@ -75,30 +72,43 @@
                         tools:layout_editor_absoluteX="102dp"
                         tools:layout_editor_absoluteY="211dp" />
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/PasswordDadosPess"
+                        android:layout_width="266dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/editEmailPerfil"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="34dp"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/PasswordLoginInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="51dp"
+                            android:layout_below="@+id/name_emailText"
+                            android:background="#FFFFFF"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                     <TextView
                         android:id="@+id/textViewNivelDados"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/editEmailPerfil"
-                        android:layout_marginTop="38dp"
+                        android:layout_marginTop="120dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="&quot;Nivel&quot;"
                         android:textAlignment="center"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:textSize="20dp" />
 
                     <Button
                         android:id="@+id/buttonEditarDados"
                         android:layout_width="163dp"
                         android:layout_height="52dp"
                         android:layout_below="@id/textViewNivelDados"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="125dp"
-                        android:layout_marginTop="49dp"
-                        android:layout_marginEnd="123dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
                         android:text="Editar/Guardar Dados"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -108,11 +118,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/buttonEditarDados"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="151dp"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="13dp"
-                        android:layout_marginEnd="148dp"
                         android:text="Voltar"
                         app:icon="@android:drawable/ic_menu_revert"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,28 +131,22 @@
                     <TextView
                         android:id="@+id/textViewNome"
                         android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_height="44dp"
                         android:layout_below="@+id/editUsernamePerfil"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="113dp"
-                        android:layout_marginTop="-44dp"
-                        android:layout_marginEnd="112dp"
+                        android:layout_marginTop="-46dp"
                         android:text="TóZé"
                         android:textAlignment="center"
                         android:textSize="25dp" />
 
                     <TextView
                         android:id="@+id/textViewEmail"
-                        android:layout_width="244dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/editEmailPerfil"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="80dp"
-                        android:layout_marginTop="-52dp"
-                        android:layout_marginEnd="87dp"
-                        android:text="TextView"
+                        android:layout_marginTop="-55dp"
+                        android:text="email@email.com"
                         android:textAlignment="center"
                         android:textSize="30dp" />
 
