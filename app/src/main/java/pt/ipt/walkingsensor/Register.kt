@@ -21,8 +21,6 @@ class Register : AppCompatActivity() {
 
         val registerButton = findViewById<ImageButton>(R.id.registerButton)
         voltarButton.setOnClickListener {
-            //val intent = Intent(this@Register, LandingActivity::class.java)
-            //startActivity(intent)
             this.finish()
         }
 

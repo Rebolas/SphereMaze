@@ -13,11 +13,7 @@ class SobreNos : AppCompatActivity() {
 
         val voltarLandButton = findViewById<Button>(R.id.ButtonVoltarSobre)
         voltarLandButton.setOnClickListener {
-            val intent = Intent(this@SobreNos, LandingActivity::class.java)
-            startActivity(intent)
-
-
-            
+            this.finish()
         }
     }
 }

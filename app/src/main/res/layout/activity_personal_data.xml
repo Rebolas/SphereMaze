@@ -7,10 +7,22 @@
     tools:context="pt.ipt.walkingsensor.PersonalDataActivity">
 
     <ImageView
-        android:id="@+id/BackgroundImage"
+        android:id="@+id/imageViewBaseDadosPess"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base" />
+
+    <ImageView
+        android:id="@+id/BackgroundImageDadosPess"
+        android:layout_width="393dp"
+        android:layout_height="785dp"
         android:background="#B50000"
+        android:contentDescription="background Image"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,13 +30,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/landingimage" />
 
-            <ScrollView
-                android:id="@+id/scrollView4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageDadosPess"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageDadosPess"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageDadosPess"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageDadosPess">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -78,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/editEmailPerfil"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="34dp"
+                        android:layout_marginTop="29dp"
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -87,7 +99,9 @@
                             android:layout_height="51dp"
                             android:layout_below="@+id/name_emailText"
                             android:background="#FFFFFF"
+                            android:editable="false"
                             android:inputType="textPassword" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -95,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/editEmailPerfil"
-                        android:layout_marginTop="120dp"
+                        android:layout_marginTop="118dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:text="&quot;Nivel&quot;"
@@ -149,6 +163,8 @@
                         android:text="email@email.com"
                         android:textAlignment="center"
                         android:textSize="30dp" />
+
+
 
                 </RelativeLayout>
             </ScrollView>

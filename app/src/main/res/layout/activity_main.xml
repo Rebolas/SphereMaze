@@ -7,49 +7,59 @@
     tools:context="pt.ipt.walkingsensor.MainActivity">
 
     <ImageView
-        android:id="@+id/BackgroundImage"
+        android:id="@+id/imageViewBaseDadosPess"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base" />
+
+    <ImageView
+        android:id="@+id/BackgroundImageMain"
+        android:layout_width="393dp"
+        android:layout_height="785dp"
         android:background="#B50000"
         android:contentDescription="background Image"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/landingimage" />
 
     <Button
         android:id="@+id/LogoutButton"
         android:layout_width="98dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="16dp"
         android:text="Logout"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageMain" />
 
     <Button
         android:id="@+id/settingsButton"
         android:layout_width="83dp"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:contentDescription="Settings"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
         app:layout_constraintTop_toBottomOf="@+id/LogoutButton" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="161dp"
+        android:layout_marginBottom="524dp"
         android:text="@string/GameName"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -58,36 +68,39 @@
         app:autoSizeMinTextSize="12sp"
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/BackgroundImage"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageMain"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
+        app:layout_constraintTop_toTopOf="@+id/BackgroundImageMain"
+        app:layout_constraintVertical_bias="0.981" />
 
     <ImageButton
         android:id="@+id/imageButtonPerfil"
-        android:contentDescription=" Profile Image"
         android:layout_width="68dp"
         android:layout_height="68dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
+        android:contentDescription=" Profile Image"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
         app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageMain"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:text="&quot;Username&quot;"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageMain"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
         app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonPerfil" />
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonPerfil"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
@@ -95,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:text="&quot;Nivel atual&quot;"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageButton
@@ -104,13 +117,13 @@
         android:layout_width="199dp"
         android:layout_height="52dp"
         android:layout_marginStart="134dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="135dp"
         android:background="@drawable/buttoncustomized"
         android:contentDescription="PlayButtonImage"
-        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
@@ -134,9 +147,9 @@
         android:layout_height="52dp"
         android:background="@drawable/buttoncustomized"
         android:contentDescription="PlayButtonImage"
-        app:layout_constraintBottom_toBottomOf="@+id/BackgroundImage"
-        app:layout_constraintEnd_toEndOf="@+id/BackgroundImage"
-        app:layout_constraintStart_toStartOf="@+id/BackgroundImage"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageMain"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageMain"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageMain"
         app:layout_constraintTop_toBottomOf="@+id/playButton"
         app:layout_constraintVertical_bias="0.413" />
 

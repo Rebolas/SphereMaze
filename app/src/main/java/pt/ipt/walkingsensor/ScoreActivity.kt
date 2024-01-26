@@ -14,8 +14,7 @@ class ScoreActivity : AppCompatActivity() {
 
         val voltarButtonScore = findViewById<Button>(R.id.ButtonVoltarSobre)
         voltarButtonScore.setOnClickListener {
-            val intent = Intent(this@ScoreActivity, MainActivity::class.java)
-            startActivity(intent)
+            this.finish()
         }
     }
 }

@@ -6,37 +6,50 @@
     android:layout_height="match_parent"
     tools:context="pt.ipt.walkingsensor.SobreNos">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scrollView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base" />
+
     <Button
         android:id="@+id/ButtonVoltarSobre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:text="Voltar"
         app:icon="@android:drawable/ic_menu_revert"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@id/imageView2"
+        app:layout_constraintStart_toStartOf="@id/imageView2"
+        app:layout_constraintTop_toBottomOf="@id/scrollView3"
+        app:layout_constraintVertical_bias="0.364" />
 
     <ScrollView
+        android:layout_width="393dp"
+        android:layout_height="663dp"
         android:id="@+id/scrollView3"
-        android:layout_width="396dp"
-        android:layout_height="512dp"
-        android:layout_marginTop="122dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonVoltarSobre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="122dp"
+        app:layout_constraintBottom_toBottomOf="@id/imageView2"
+        app:layout_constraintEnd_toEndOf="@id/imageView2"
+        app:layout_constraintStart_toStartOf="@id/imageView2"
+        app:layout_constraintTop_toTopOf="@id/imageView2">
 
         <TextView
             android:id="@+id/TextSobreNos"
             android:layout_width="361dp"
             android:layout_height="535dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="100dp"
             android:scrollbars="vertical"
-            android:text="Curso de Engenharia Informática, unidade curricular de desenvolvimento de aplicações moveis, 2023/2024.\n\n23043 Ricardo Saúde\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho\n23024 Tiago Carvalho"
+            android:text="Curso de Engenharia Informática, unidade curricular de desenvolvimento de aplicações moveis, 2023/2024.\n\n23043 Ricardo Saúde\n23024 Tiago Carvalho\n\nReferencias:\n\nScrollImage, Image by upklyak on Freepik\n\nDreamers Mixaund on https://www.free-stock-music.com/\n\nTrabalhar com o acelarometro:\nAccelerometer Sensor Tutorial in Android Studio (Kotlin 2021) from channel 'Indently'\n\nCat icons created by Freepik - Flaticon\n\n Profile image icons created by Karyative - Flaticon\n\nProfile icons created by tenBystry - Flaticon\n\nMaking texts appear one by one (aka Typewriter effect) in Android Kotlin, Stackoverflow\n\nSet Alpha/Opacity of Layout, Stackoverflow\n\n"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/ButtonVoltarSobre"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"

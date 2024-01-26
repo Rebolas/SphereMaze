@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.google.android.material.textfield.TextInputEditText
 import pt.ipt.WalkingSensorGame.R
 
 class PersonalDataActivity : AppCompatActivity() {
@@ -19,13 +20,13 @@ class PersonalDataActivity : AppCompatActivity() {
 
         val buttonvoltardados = findViewById<Button>(R.id.ButtonVoltarSobre)
         buttonvoltardados.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            this.finish()
         }
         val nameTextView = findViewById<TextView>(R.id.textViewNome)
         val textViewEmail = findViewById<TextView>(R.id.textViewEmail)
         val nameEdit = findViewById<EditText>(R.id.editUsernamePerfil)
         val emailEdit = findViewById<EditText>(R.id.editEmailPerfil)
+        val passEdit = findViewById<TextInputEditText>(R.id.PasswordPDInput)
 
         val buttonEditarDados = findViewById<Button>(R.id.buttonEditarDados)
         buttonEditarDados.setOnClickListener{
@@ -35,6 +36,8 @@ class PersonalDataActivity : AppCompatActivity() {
 
             emailEdit.visibility = View.VISIBLE
             textViewEmail.visibility = View.INVISIBLE
+
+            passEdit.isEnabled = true
         }else{
             nameEdit.visibility = View.INVISIBLE
             nameTextView.visibility = View.VISIBLE
@@ -43,6 +46,8 @@ class PersonalDataActivity : AppCompatActivity() {
             emailEdit.visibility = View.INVISIBLE
             textViewEmail.visibility = View.VISIBLE
             textViewEmail.text = emailEdit.text
+
+            passEdit.isEnabled = false
         }
         }
     }

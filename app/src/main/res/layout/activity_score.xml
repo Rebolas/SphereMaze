@@ -7,9 +7,20 @@
     tools:context="pt.ipt.walkingsensor.ScoreActivity">
 
     <ImageView
-        android:id="@+id/BackgroundImage"
+        android:id="@+id/imageViewBaseScore"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base" />
+
+    <ImageView
+        android:id="@+id/BackgroundImageScore"
+        android:layout_width="393dp"
+        android:layout_height="785dp"
         android:background="#B50000"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,10 +36,9 @@
         android:layout_marginBottom="16dp"
         android:text="Voltar"
         app:icon="@android:drawable/ic_menu_revert"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageScore"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageScore"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageScore"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -36,22 +46,27 @@
         android:id="@+id/textHighestScores"
         android:layout_width="259dp"
         android:layout_height="53dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="56dp"
         android:text="Highest Score"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="35sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageScore"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageScore"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageScore"
+        app:layout_constraintVertical_bias="0.941" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="411dp"
-        android:layout_height="546dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textHighestScores">
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImageScore"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImageScore"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImageScore"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImageScore">
 
         <LinearLayout
             android:layout_width="match_parent"

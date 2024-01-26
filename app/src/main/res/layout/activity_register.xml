@@ -7,27 +7,35 @@
     tools:context="pt.ipt.walkingsensor.Register">
 
     <ImageView
-        android:id="@+id/BackgroundImage"
+        android:id="@+id/imageViewBase"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#B50000"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/base" />
+
+    <ImageView
+        android:id="@+id/BackgroundImage"
+        android:layout_width="393dp"
+        android:layout_height="785dp"
         android:contentDescription="background Image"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/landingimage" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="@id/BackgroundImage"
+        app:layout_constraintEnd_toEndOf="@id/BackgroundImage"
+        app:layout_constraintStart_toStartOf="@id/BackgroundImage"
+        app:layout_constraintTop_toTopOf="@id/BackgroundImage">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -99,31 +107,40 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEmailReg" />
 
+
             <TextView
                 android:id="@+id/textViewPassw"
                 android:layout_width="78dp"
                 android:layout_height="22dp"
                 android:layout_below="@+id/EmailTextView"
                 android:layout_alignStart="@+id/PasswordLoginInput"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="40dp"
                 android:text="Password:"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/PasswordLoginInput"
                 app:layout_constraintTop_toBottomOf="@+id/EmailTextView" />
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/PasswordLoginInput"
-                android:layout_width="219dp"
-                android:layout_height="51dp"
-                android:layout_below="@+id/textViewEmailReg"
+                android:layout_width="266dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:ems="10"
-                android:hint="password"
-                android:inputType="textPassword"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.535"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPassw" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewPassw"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/PasswordPDInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_below="@+id/name_emailText"
+                    android:background="#FFFFFF"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
                 android:id="@+id/registerButton"
@@ -136,7 +153,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/backButtonRegister"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PasswordLoginInput" />
+                app:layout_constraintTop_toBottomOf="@+id/PasswordLoginInput"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/registerButttonTextView"
