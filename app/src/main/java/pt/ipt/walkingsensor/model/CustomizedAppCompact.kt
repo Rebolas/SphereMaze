@@ -79,20 +79,60 @@ open class CustomizedAppCompact : AppCompatActivity() {
                         val intent= Intent(this@Register, MainActivity::class.java)
                         startActivity(intent)
                     }*/
-
                 }
             }
         )
-
     }
 
-    fun logOut(token:String){
+    fun postScore(token: String,level:String,score:Int, getDataCallback: GetDataCallback){
+        val s = Score(token,level,score)
+        Log.d("Debug", "score sending token :$token, level: $level, Score: $score")
+        val call = RetrofitInitializer().connector().postScore(s)
+        call.enqueue(
+            object: Callback<APIResult> {
+                override fun onFailure(call: Call<APIResult>, t: Throwable){
+                    t.printStackTrace()
+                }
+                override fun onResponse(call: Call<APIResult>, response: Response<APIResult>){
+                    val resultado: APIResult? = response.body()
+                    if (resultado != null) {
+                        getDataCallback.onGetData(resultado)
+                    }
+                }
+            }
+        )
+    }
+
+    fun logOut(token:String, getDataCallback: GetDataCallback){
         val call = RetrofitInitializer().connector().logOut(token)
+        call.enqueue(
+            object: Callback<APIResult> {
+                override fun onFailure(call: Call<APIResult>, t: Throwable){
+                    t.printStackTrace()
+                }
+                override fun onResponse(call: Call<APIResult>, response: Response<APIResult>){
+                    val resultado: APIResult? = response.body()
+                    if (resultado != null) {
+                        getDataCallback.onGetData(resultado)
+                    }
+                }
+            }
+        )
     }
 
     fun editPersonalData(u: Utilizador) {
         val call = RetrofitInitializer().connector().editPersonalData(u)
-
+        call.enqueue(
+            object: Callback<APIResult> {
+                override fun onFailure(call: Call<APIResult>, t: Throwable){
+                    t.printStackTrace()
+                }
+                override fun onResponse(call: Call<APIResult>, response: Response<APIResult>){
+                    val resultado: APIResult? = response.body()
+                    Log.d("Debug", "result comming : ${resultado?.message}")
+                }
+            }
+        )
     }
 
 }

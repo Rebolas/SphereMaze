@@ -1,5 +1,6 @@
 package pt.ipt.walkingsensor.service
 import pt.ipt.walkingsensor.model.APIResult
+import pt.ipt.walkingsensor.model.Score
 import pt.ipt.walkingsensor.model.Utilizador
 import retrofit2.Call
 import retrofit2.http.Body
@@ -25,6 +26,9 @@ interface APIConnector {
 
     @POST("editPersonalData")
     fun editPersonalData(@Body utilizador: Utilizador?): Call<APIResult>
+
+    @POST("post_score")
+    fun postScore(@Body score: Score): Call<APIResult>
 
 
     //fun obterToken(@Field("email")email:String?, @Field("password")password:String?): Call<APIResult>

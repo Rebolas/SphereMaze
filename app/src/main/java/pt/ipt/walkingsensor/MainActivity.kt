@@ -3,13 +3,16 @@ package pt.ipt.walkingsensor
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import org.w3c.dom.Text
 import pt.ipt.WalkingSensorGame.R
 import pt.ipt.walkingsensor.levels.Level1
+import pt.ipt.walkingsensor.model.APIResult
 import pt.ipt.walkingsensor.model.CustomizedAppCompact
 import kotlin.properties.Delegates
 
@@ -57,26 +60,41 @@ class MainActivity : CustomizedAppCompact() {
 
         val buttonscoremain = findViewById<ImageButton>(R.id.scoreButton)
         buttonscoremain.setOnClickListener {
-            val intent = Intent(this, ScoreActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, ScoreActivity::class.java)
+            //startActivity(intent)
+            Toast.makeText(this, "This view has not been finish", Toast.LENGTH_SHORT).show()
+
         }
 
-            val buttonclick = findViewById<ImageButton>(R.id.playButton)
-            buttonclick.setOnClickListener {
-                when(lastLevel){
-                    0 ->{
-                        val intent = Intent(this, Level1::class.java)
-                        startActivity(intent)
-                    }
+        val buttonclick = findViewById<ImageButton>(R.id.playButton)
+        buttonclick.setOnClickListener {
+            when(lastLevel){
+                0 ->{
+                    val intent = Intent(this, Level1::class.java)
+                    intent.putExtra("token", token)
+                    startActivity(intent)
                 }
-
-
-                //overridePendingTransition(R.drawable.fade_in, R.drawable.fade_out);
             }
         }
+    }
+
+
 
     private fun closeActivity() {
-        logOut(token)
+        logOut(token, object : GetDataCallback{
+            override fun onGetData(data: APIResult) {
+                Log.d("Debug","Coud Log Off properly with message : ${data.message}")
+
+                if (data.error != null){
+                    Log.d("Debug","Coudnt Log Off properly with message : ${data.error}")
+                }
+            }
+
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
+
+        })
         this.finish()
     }
 }

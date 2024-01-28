@@ -26,6 +26,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pt.ipt.WalkingSensorGame.R
+import pt.ipt.walkingsensor.model.APIResult
+import pt.ipt.walkingsensor.model.CustomizedAppCompact
 import java.util.Random
 import java.util.Timer
 import java.util.TimerTask
@@ -33,8 +35,10 @@ import java.util.TimerTask
 
 //Para duvidas verificar no video https://www.youtube.com/watch?v=xcsuDDQHrLo&ab_channel=Indently
 
-class Level1 : AppCompatActivity(), SensorEventListener {
+class Level1 : CustomizedAppCompact(), SensorEventListener {
 
+    private lateinit var token: String
+    private lateinit var t: Timer
     private val totalMushrooms: Int = 10
     private lateinit var deadScreen: ConstraintLayout
     private lateinit var blackScreen: TextView
@@ -86,6 +90,8 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level1)
+
+        token = intent.getStringExtra("token")!!
 
         setupSensors()
         setupGame()
@@ -314,7 +320,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     }
 
     private fun setupProgressBarTimer() {
-        val t = Timer()
+        t = Timer()
         val tt: TimerTask = object : TimerTask() {
             override fun run() {
                 if (progressBar.progress > 0) {
@@ -361,17 +367,32 @@ class Level1 : AppCompatActivity(), SensorEventListener {
 
 
             runOnUiThread {
-                endingView.visibility = View.VISIBLE
+                t.cancel()
+                val endingScreen = findViewById<ConstraintLayout>(R.id.endingScreen)
+                endingScreen.visibility = View.VISIBLE
             }
-
         }
 
         val textViewCollected = findViewById<TextView>(R.id.textViewCollected)
         textViewCollected.text = "${(totalMushrooms-collectablesMissing)/totalMushrooms}/${totalMushrooms}"
+        postScore(token,"level1",(((totalMushrooms-collectablesMissing)/(totalMushrooms*1f))*100).toInt(), object  : GetDataCallback{
+            override fun onGetData(data: APIResult) {
+                Log.d("Debug","Coud post score properly with message : ${data.message}")
+                if (data.error != ""){
+                    Log.d("Debug","Coud Log Off properly with message : ${data.error}")
+                }
+            }
 
+            override fun onError() {
+                TODO("Not yet implemented")
+            }
+
+        })
         animSet = AnimatorSet()
         animSet.play(fadeBlackScreen1Half)
         animSet.start()
+
+
     }
 
     private fun writeMessage(txt:String, duration: Long): AnimatorSet {

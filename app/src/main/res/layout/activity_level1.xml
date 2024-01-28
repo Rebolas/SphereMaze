@@ -227,8 +227,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/IslandsImageView"
         app:layout_constraintEnd_toEndOf="@+id/IslandsImageView"
         app:layout_constraintStart_toStartOf="@+id/IslandsImageView"
-        app:layout_constraintTop_toTopOf="@+id/IslandsImageView"
-        tools:visibility="visible">
+        app:layout_constraintTop_toTopOf="@+id/IslandsImageView">
 
         <Button
             android:id="@+id/restartButton1"
