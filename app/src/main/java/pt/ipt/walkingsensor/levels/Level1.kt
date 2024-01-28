@@ -97,8 +97,8 @@ class Level1 : CustomizedAppCompact(), SensorEventListener {
         setupGame()
 
         //Start the game
-        //startAnimations()
-        startFastAnimations()
+        startAnimations()
+        //startFastAnimations()
 
 
     }
@@ -462,8 +462,8 @@ class Level1 : CustomizedAppCompact(), SensorEventListener {
         animSet.play(fadeBlackScreen).with(fadeDeadScreen)
         animSet.start()
 
-        startFastAnimations()
-        //startAnimations()
+        //startFastAnimations()
+        startAnimations()
         setupMushrooms()
 
     }
