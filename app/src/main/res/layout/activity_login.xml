@@ -7,20 +7,19 @@
     tools:context="pt.ipt.walkingsensor.LoginActivity">
 
     <ImageView
-        android:id="@+id/BackgroundImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#B50000"
+        android:id="@+id/imageViewBaseDadosPess"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/landingimage" />
+        app:srcCompat="@drawable/base" />
 
     <ScrollView
-        android:layout_width="393dp"
-        android:layout_height="785dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +27,20 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
+
+            <ImageView
+                android:id="@+id/BackgroundImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#B50000"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/landingimage" />
 
             <TextView
                 android:id="@+id/RegisterLabel"
@@ -63,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RegisterLabel"
                 android:layout_alignStart="@+id/name_emailTextLogin"
-                android:layout_marginTop="176dp"
+                android:layout_marginTop="124dp"
                 android:text="Username/email"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -83,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/name_emailTextLogin" />
 
 
-           <!-- <com.google.android.material.textfield.TextInputLayout
+            <!-- <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/PasswordLoginInput"
                 android:layout_width="266dp"
                 android:layout_height="wrap_content"
@@ -105,12 +116,11 @@
             </com.google.android.material.textfield.TextInputLayout>-->
 
 
-
             <ImageButton
                 android:id="@+id/loginButton"
                 android:layout_width="199dp"
                 android:layout_height="52dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="44dp"
                 android:background="@drawable/buttoncustomized"
                 android:contentDescription="Login ButtonImage"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -142,9 +152,10 @@
                 android:contentDescription="PlayButtonImage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginButton"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/BackButttonTextView"
@@ -166,11 +177,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPassw"
-                android:ems="10"
-                android:inputType="textPassword"
                 tools:layout_editor_absoluteX="91dp"
                 tools:layout_editor_absoluteY="242dp" />
 

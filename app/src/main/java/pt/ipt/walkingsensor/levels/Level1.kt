@@ -26,7 +26,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pt.ipt.WalkingSensorGame.R
-import java.sql.DriverManager.println
 import java.util.Random
 import java.util.Timer
 import java.util.TimerTask
@@ -36,6 +35,7 @@ import java.util.TimerTask
 
 class Level1 : AppCompatActivity(), SensorEventListener {
 
+    private val totalMushrooms: Int = 10
     private lateinit var deadScreen: ConstraintLayout
     private lateinit var blackScreen: TextView
     private lateinit var character: ImageView
@@ -326,7 +326,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
                     t.cancel()
                     isDead = true
                     runOnUiThread {
-                        gameOver()
+                        gameOverDead()
                     }
                 }
             }
@@ -335,7 +335,7 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         t.schedule(tt, 0, 500)
     }
 
-    private fun gameOver() {
+    private fun gameOverDead() {
         // Darken Screen
         val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0f, 0.5f)
         fadeBlackScreen1Half.duration = 2_500
@@ -352,6 +352,26 @@ class Level1 : AppCompatActivity(), SensorEventListener {
         animSet.start()
 
 
+    }
+    private fun gameOverWon(){
+        // Darken Screen
+        val fadeBlackScreen1Half: ValueAnimator = ObjectAnimator.ofFloat(blackScreen, "alpha", 0f, 0.5f)
+        fadeBlackScreen1Half.duration = 2_500
+        fadeBlackScreen1Half.doOnEnd {
+
+
+            runOnUiThread {
+                endingView.visibility = View.VISIBLE
+            }
+
+        }
+
+        val textViewCollected = findViewById<TextView>(R.id.textViewCollected)
+        textViewCollected.text = "${(totalMushrooms-collectablesMissing)/totalMushrooms}/${totalMushrooms}"
+
+        animSet = AnimatorSet()
+        animSet.play(fadeBlackScreen1Half)
+        animSet.start()
     }
 
     private fun writeMessage(txt:String, duration: Long): AnimatorSet {
@@ -484,17 +504,24 @@ class Level1 : AppCompatActivity(), SensorEventListener {
     private fun setupEndScreen() {
         val backbutton = findViewById<Button>(R.id.backButton)
         val restartButton = findViewById<Button>(R.id.restartButton)
+        val backbutton1 = findViewById<Button>(R.id.backButton1)
+        val restartButton1 = findViewById<Button>(R.id.restartButton1)
         backbutton.setOnClickListener{
             goBack()
         }
+        backbutton1.setOnClickListener{
+            goBack()
+        }
         restartButton.setOnClickListener{
+            restartActivity()
+        }
+        restartButton1.setOnClickListener{
             restartActivity()
         }
 
     }
 
     private fun setupMushrooms() {
-        val totalMushrooms = 10
         setupHealthBar(totalMushrooms)
         collectablesMissing = totalMushrooms
         Log.d("Debug","progressMax = ${progressBar.max}")
@@ -650,6 +677,12 @@ class Level1 : AppCompatActivity(), SensorEventListener {
             )
 
 
+            //check for FIN
+            if(collectablesMissing == 0 && isColliding(characterRect,endingView)){
+                isDead = true
+                gameOverWon()
+                //gameOverDead()
+            }
 
             //Collisions with collectables
             var isCollectableFound = false

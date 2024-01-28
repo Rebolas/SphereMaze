@@ -2,4 +2,5 @@
     <string name="app_name">WalkingSensor</string>
     <string name="GameName">Walking Sensor\n</string>
     <string name="playBtn">Play</string>
+    <string name="AboutUs" ></string>
 </resources>

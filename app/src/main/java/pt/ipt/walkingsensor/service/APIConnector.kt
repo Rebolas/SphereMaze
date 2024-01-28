@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface APIConnector {
+
     @GET("get_all_users")
     fun obterUtilizadores(): Call<List<Utilizador>>
 
@@ -18,6 +19,13 @@ interface APIConnector {
 
     @POST("create_account")
     fun obterRegisto(@Body utilizador: Utilizador?): Call<APIResult>
+
+    @POST("logout")
+    fun logOut(@Body token: String?): Call<APIResult>
+
+    @POST("editPersonalData")
+    fun editPersonalData(@Body utilizador: Utilizador?): Call<APIResult>
+
 
     //fun obterToken(@Field("email")email:String?, @Field("password")password:String?): Call<APIResult>
    /* @GET("API/getNotes.php")

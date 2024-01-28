@@ -44,15 +44,14 @@ class LandingActivity : AppCompatActivity() {
             }
         }
 
-        startService(
+        /*startService(
             Intent(
                 this@LandingActivity,
                 BackgroundMusic::class.java
             )
         )
         isMusicPlaying = true
-
-        /// END OF TEST CODE
+*/
 
 
         val loginButton = findViewById<ImageButton>(R.id.loginLandingButton)

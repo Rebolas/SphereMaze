@@ -81,10 +81,11 @@
         android:id="@+id/loginLandingButton"
         android:layout_width="199dp"
         android:layout_height="52dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/buttoncustomized"
         android:contentDescription="LoginButtonImage"
         app:layout_constraintEnd_toEndOf="@+id/BackgroundImageLanding"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="@+id/BackgroundImageLanding"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -108,10 +109,11 @@
         android:id="@+id/registerLandingButton"
         android:layout_width="199dp"
         android:layout_height="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="92dp"
         android:background="@drawable/buttoncustomized"
         android:contentDescription="RegisterButtonImage"
         app:layout_constraintEnd_toEndOf="@+id/BackgroundImageLanding"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="@+id/BackgroundImageLanding"
         app:layout_constraintTop_toBottomOf="@+id/loginLandingButton" />
 
@@ -139,9 +141,10 @@
         android:contentDescription="PlayButtonImage"
         app:layout_constraintBottom_toBottomOf="@+id/BackgroundImageLanding"
         app:layout_constraintEnd_toEndOf="@+id/BackgroundImageLanding"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="@+id/BackgroundImageLanding"
         app:layout_constraintTop_toBottomOf="@+id/registerLandingButton"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.407" />
 
     <TextView
         android:id="@+id/AboutUsLandingTextView"

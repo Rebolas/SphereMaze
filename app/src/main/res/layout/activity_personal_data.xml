@@ -94,7 +94,7 @@
                         app:passwordToggleEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/PasswordPDInput"
+                            android:id="@+id/PasswordRegisterInput"
                             android:layout_width="match_parent"
                             android:layout_height="51dp"
                             android:layout_below="@+id/name_emailText"
@@ -114,7 +114,9 @@
                         android:paddingBottom="10dp"
                         android:text="&quot;Nivel&quot;"
                         android:textAlignment="center"
-                        android:textSize="20dp" />
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
                     <Button
                         android:id="@+id/buttonEditarDados"

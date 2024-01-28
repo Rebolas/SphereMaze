@@ -126,7 +126,7 @@
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/usernameTextViewMain"
                     android:layout_width="303dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -146,7 +146,7 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/textViewLastlevel"
                     android:layout_width="194dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
